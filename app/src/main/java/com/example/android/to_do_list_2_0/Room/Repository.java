@@ -1,13 +1,17 @@
 package com.example.android.to_do_list_2_0.Room;
 
+import android.app.Application;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.arch.lifecycle.LiveData;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 import static com.example.android.to_do_list_2_0.MainActivity.myTaskDatabase;
 
 //Handles data operations to database
 public class Repository {
+
     private Task task;
     private LiveData<List<Task>> allTasks;
 
@@ -17,8 +21,25 @@ public class Repository {
     }
 
     //LiveData notifies when data has changed
-    LiveData<List<Task>> getAllTasks(){
+    public LiveData<List<Task>> getAllTasks(){
         return allTasks;
+    }
+
+    public Task read(int id){
+        //return  new readTask().execute(id);
+        return null;
+    }
+
+    public List<Task> readAll()
+    {
+        try {
+            return new readAllTasks().execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void deleteAll()
@@ -46,14 +67,24 @@ public class Repository {
             return null;
         }
     }
+
+    private static class readTask extends AsyncTask<Integer, Void, Task>
+    {
+
+        @Override
+        protected Task doInBackground(Integer... params) {
+
+            return null;
+        }
+    }
     //Might not need this anymore because of livedata
-    private static class readTask extends AsyncTask<Void, Void, List<Task>>
+    private static class readAllTasks extends AsyncTask<Void, Void, List<Task>>
     {
         List<Task> temp;
 
         @Override
         protected List<Task> doInBackground(Void... voids) {
-            temp = (List<Task>) myTaskDatabase.taskDao().getAllTasks();
+            temp = myTaskDatabase.taskDao().getAllTasks();
             Log.d("Checking Tasks", "temp list = " + String.valueOf(temp.size()));
             if(temp.size() == 0)
             {

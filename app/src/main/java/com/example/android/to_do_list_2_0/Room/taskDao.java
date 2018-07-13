@@ -16,7 +16,7 @@ public interface taskDao {
     void insertUserTask(Task task);
 
     @Query("SELECT * FROM userTask")
-    LiveData<List<Task>> getAllTasks();
+    List<Task> getAllTasks();
 
     @Query("DELETE FROM userTask")
     void deleteAllTasks();
