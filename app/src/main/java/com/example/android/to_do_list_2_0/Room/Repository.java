@@ -11,7 +11,33 @@ public class Repository {
     private Task task;
     private LiveData<List<Task>> allTasks;
 
-    public static class insertTask extends AsyncTask<Task, Void, Void>
+    public void insert(Task task)
+    {
+        new insertTask().execute(task);
+    }
+
+    //LiveData notifies when data has changed
+    LiveData<List<Task>> getAllTasks(){
+        return allTasks;
+    }
+
+    public void deleteAll()
+    {
+        new deleteAllTasks().execute();
+    }
+
+    public void delete(Task task)
+    {
+        new deleteTask().execute(task);
+    }
+
+    public void update(Task task)
+    {
+        new updateTask().execute(task);
+    }
+
+
+    private static class insertTask extends AsyncTask<Task, Void, Void>
     {
 
         @Override
@@ -21,8 +47,8 @@ public class Repository {
             return null;
         }
     }
-
-    public static class readTask extends AsyncTask<Void, Void, List<Task>>
+    //Might not need this anymore because of livedata
+    private static class readTask extends AsyncTask<Void, Void, List<Task>>
     {
         List<Task> temp;
 
@@ -38,7 +64,7 @@ public class Repository {
         }
     }
 
-    public static class deleteAllTasks extends AsyncTask<Void, Void, Void>
+    private static class deleteAllTasks extends AsyncTask<Void, Void, Void>
     {
 
         @Override
@@ -48,7 +74,7 @@ public class Repository {
         }
     }
 
-    public static class deleteTask extends AsyncTask<Task, Void, Integer>
+    private static class deleteTask extends AsyncTask<Task, Void, Integer>
     {
         @Override
         protected Integer doInBackground(Task... params) {
@@ -58,7 +84,7 @@ public class Repository {
         }
     }
 
-    public static class updateTask extends AsyncTask<Task, Void, Void>
+    private static class updateTask extends AsyncTask<Task, Void, Void>
     {
 
         @Override
