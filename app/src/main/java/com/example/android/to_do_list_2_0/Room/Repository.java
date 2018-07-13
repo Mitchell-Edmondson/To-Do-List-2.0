@@ -36,7 +36,6 @@ public class Repository {
         new updateTask().execute(task);
     }
 
-
     private static class insertTask extends AsyncTask<Task, Void, Void>
     {
 
