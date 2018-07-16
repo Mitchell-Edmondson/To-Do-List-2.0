@@ -26,7 +26,13 @@ public class Repository {
     }
 
     public Task read(int id){
-        //return  new readTask().execute(id);
+        try {
+            return new readTask().execute(id).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -73,8 +79,9 @@ public class Repository {
 
         @Override
         protected Task doInBackground(Integer... params) {
-
-            return null;
+            Task task = myTaskDatabase.taskDao().getTask(params[0]);
+            Log.d("readTask", "read " + task.getUserTask());
+            return task;
         }
     }
     //Might not need this anymore because of livedata

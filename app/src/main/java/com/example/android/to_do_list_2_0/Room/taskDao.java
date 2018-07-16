@@ -18,6 +18,9 @@ public interface taskDao {
     @Query("SELECT * FROM userTask")
     List<Task> getAllTasks();
 
+    @Query("SELECT * FROM userTask WHERE ID = :id")
+    Task getTask(Integer id);
+
     @Query("DELETE FROM userTask")
     void deleteAllTasks();
 

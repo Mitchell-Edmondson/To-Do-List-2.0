@@ -35,7 +35,9 @@ public class ViewModel extends AndroidViewModel {
         return repository.readAll();
     }
 
-    public void updateScreen() {
-
+    public Task readTask(int id)
+    {
+        return repository.read(id);
     }
+
 }

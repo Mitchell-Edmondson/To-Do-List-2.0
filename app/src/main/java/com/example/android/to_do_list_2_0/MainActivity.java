@@ -12,6 +12,7 @@ import android.view.View;
 import com.example.android.to_do_list_2_0.Fragments.addToDo;
 
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -62,12 +63,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateScreen(View view){
+        //Exit the fragment
+        getSupportFragmentManager().popBackStack();
         //Get the text the user entered
         EditText editText = findViewById(R.id.add_todo_edit_text);
         //Get the id of the task
         ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout);
         //Insert task into database
         viewModel.insert(editText.getText().toString(), constraintLayout.getChildCount() - 1);
+        //Read the task back
+        Task task = viewModel.readTask(constraintLayout.getChildCount() - 1);
+        //Display task on screen
+        Button button = new Button(this);
+        button.setText(task.getUserTask());
+        constraintLayout.addView(button);
 
     }
 }
