@@ -11,21 +11,14 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/add_todo">
-
-        <EditText
-            android:id="@+id/add_todo_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
-
+        android:id="@+id/add_todo_container">
     </FrameLayout>
 
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="putindb"
+        android:onClick="createAddToDo"
         android:text="+"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -2,13 +2,18 @@ package com.example.android.to_do_list_2_0;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
+import com.example.android.to_do_list_2_0.Fragments.addToDo;
 
+import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 import com.example.android.to_do_list_2_0.Room.Task;
 import com.example.android.to_do_list_2_0.Room.taskDatabase;
 import com.example.android.to_do_list_2_0.ViewModel.ViewModel;
@@ -37,17 +42,25 @@ public class MainActivity extends AppCompatActivity {
                 "userTaskDB").build();
     }
 
-    public void putindb(View view)
+    //Start the fragment to create a To Do item
+    public void createAddToDo(View view)
     {
-        EditText editText = findViewById(R.id.edit_text);
+        //Clear screen
         ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout);
-        Task task = new Task();
-        task.setId(constraintLayout.getChildCount() - 2);
-        task.setUserTask(editText.getText().toString());
-        viewModel.insert(task);
+        //Removes the "+" button
+        constraintLayout.removeViewAt(1);
 
-        List<Task> list = viewModel.readAll();
-        updateText();
+        //Start fragment for adding a To Do
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        addToDo fragment = new addToDo();
+        fragmentTransaction.replace(R.id.add_todo_container, fragment);
+
+        //Force the keyboard to pop up
+        InputMethodManager imm = (InputMethodManager)   getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+        
+        fragmentTransaction.commit();
 
     }
 
