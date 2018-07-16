@@ -22,14 +22,20 @@ public class ViewModel extends AndroidViewModel {
         allTasks = repository.getAllTasks();
     }
 
-    public void insert(Task task)
-    {
+    public void insert(String todo, int id) {
+
+        Task task = new Task();
+        task.setUserTask(todo);
+        task.setId(id);
         repository.insert(task);
-        List<Task> temp = repository.readAll();
     }
 
     public List<Task> readAll()
     {
         return repository.readAll();
+    }
+
+    public void updateScreen() {
+
     }
 }

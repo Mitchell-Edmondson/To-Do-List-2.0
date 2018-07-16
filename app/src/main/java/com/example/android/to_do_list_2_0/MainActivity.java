@@ -12,6 +12,7 @@ import android.view.View;
 import com.example.android.to_do_list_2_0.Fragments.addToDo;
 
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import com.example.android.to_do_list_2_0.Room.Task;
@@ -45,31 +46,28 @@ public class MainActivity extends AppCompatActivity {
     //Start the fragment to create a To Do item
     public void createAddToDo(View view)
     {
-        //Clear screen
-        ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout);
-        //Removes the "+" button
-        constraintLayout.removeViewAt(1);
-
         //Start fragment for adding a To Do
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         addToDo fragment = new addToDo();
         fragmentTransaction.replace(R.id.add_todo_container, fragment);
+        fragmentTransaction.addToBackStack(null);
 
         //Force the keyboard to pop up
         InputMethodManager imm = (InputMethodManager)   getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-        
+
         fragmentTransaction.commit();
 
     }
 
-    public void updateText(){
-        //Update screen
+    public void updateScreen(View view){
+        //Get the text the user entered
+        EditText editText = findViewById(R.id.add_todo_edit_text);
+        //Get the id of the task
         ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout);
-        TextView textView = new TextView(this);
-        constraintLayout.addView(textView);
-        List<Task> list = viewModel.readAll();
-        textView.setText(list.get(constraintLayout.getChildCount() - 3).getUserTask());
+        //Insert task into database
+        viewModel.insert(editText.getText().toString(), constraintLayout.getChildCount() - 1);
+
     }
 }

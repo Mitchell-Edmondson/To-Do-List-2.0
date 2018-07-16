@@ -16,4 +16,14 @@
         android:imeOptions="actionDone"
         android:inputType="text"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@+id/add_todo_edit_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:onClick="updateScreen"/>
+
 </android.support.constraint.ConstraintLayout>
