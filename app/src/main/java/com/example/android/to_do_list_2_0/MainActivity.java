@@ -8,30 +8,40 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.example.android.to_do_list_2_0.Adapters.myAdapter;
 import com.example.android.to_do_list_2_0.Fragments.addToDo;
 
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TextView;
+
 import com.example.android.to_do_list_2_0.Room.Task;
 import com.example.android.to_do_list_2_0.Room.taskDatabase;
 import com.example.android.to_do_list_2_0.ViewModel.ViewModel;
 
-import java.util.List;
+import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 
 // TODO: 16/07/18
 /*
-
+    Display Tasks in a recyclerView
 
 */
 public class MainActivity extends AppCompatActivity {
 
     private ViewModel viewModel;
     public static taskDatabase myTaskDatabase;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private ArrayList<String> todoTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
         //Initalize the database
         myTaskDatabase = Room.databaseBuilder(getApplicationContext(), taskDatabase.class,
                 "userTaskDB").build();
+
+        //Set up recycler view
+        mAdapter = new myAdapter(todoTask);
+        mRecyclerView.setAdapter(mAdapter);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
     }
 
     //Start the fragment to create a To Do item
@@ -68,15 +85,12 @@ public class MainActivity extends AppCompatActivity {
         //Get the text the user entered
         EditText editText = findViewById(R.id.add_todo_edit_text);
         //Get the id of the task
-        ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout);
+        mRecyclerView = findViewById(R.id.recycler_view);
+        mRecyclerView.setHasFixedSize(true);
         //Insert task into database
-        viewModel.insert(editText.getText().toString(), constraintLayout.getChildCount() - 1);
+        viewModel.insert(editText.getText().toString(), mRecyclerView.getChildCount() - 1);
         //Read the task back
-        Task task = viewModel.readTask(constraintLayout.getChildCount() - 1);
-        //Display task on screen
-        Button button = new Button(this);
-        button.setText(task.getUserTask());
-        constraintLayout.addView(button);
+        Task task = viewModel.readTask(mRecyclerView.getChildCount() - 1);
 
     }
 }
