@@ -5,9 +5,10 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
-import com.example.android.to_do_list_2_0.MainActivity;
 import com.example.android.to_do_list_2_0.Room.Repository;
 import com.example.android.to_do_list_2_0.Room.Task;
+
+import java.util.ArrayList;
 import java.util.List;
 
 //Holds the UI data
@@ -41,8 +42,20 @@ public class ViewModel extends AndroidViewModel {
     }
 
     //Checks the database for any existing tasks when first being opened
-    public void startUp() {
-        List<Task> tasks;
+    public ArrayList<String> startUp()
+    {
+        List<Task> tasks = repository.readAll();
+        //There are pre-existing tasks in database
+        if(tasks != null){
+
+            ArrayList<String> todoTasks = new ArrayList<String>();
+            //Add each user task to arraylist
+            for(Task t: tasks){
+                todoTasks.add(t.getUserTask());
+            }
+            return todoTasks;
+        }
+        return null;
 
     }
 

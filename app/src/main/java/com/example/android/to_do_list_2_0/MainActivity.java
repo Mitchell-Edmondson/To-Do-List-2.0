@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import com.example.android.to_do_list_2_0.Adapters.myAdapter;
 import com.example.android.to_do_list_2_0.Fragments.addToDo;
@@ -19,6 +20,7 @@ import com.example.android.to_do_list_2_0.Room.taskDatabase;
 import com.example.android.to_do_list_2_0.ViewModel.ViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 // TODO: 16/07/18
 /*
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<String> todoTask = new ArrayList<String>();
+    private ArrayList<String> todoTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +47,14 @@ public class MainActivity extends AppCompatActivity {
         myTaskDatabase = Room.databaseBuilder(getApplicationContext(), taskDatabase.class,
                 "userTaskDB").build();
 
-        viewModel.startUp();
+        todoTask = viewModel.startUp();
 
+        //Check if there are not pre-existing tasks
+        if(todoTask == null){
+            todoTask = new ArrayList<String>();
+            todoTask.add("Add your first Task!");
+        }
+        
         //Set up recycler view
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);

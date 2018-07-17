@@ -23,7 +23,7 @@ public class Repository {
     public Repository(Application application) {
         taskDatabase db = taskDatabase.getDatabase(application);
         taskDao = db.taskDao();
-        allTasks = taskDao.getAllTasks();
+        allTasks = taskDao.getAllTasksLD();
 
     }
     //LiveData notifies when data has changed
@@ -97,7 +97,7 @@ public class Repository {
 
         @Override
         protected List<Task> doInBackground(Void... voids) {
-            //temp = myTaskDatabase.taskDao().getAllTasks();
+            temp = myTaskDatabase.taskDao().getAllTasks();
             Log.d("Checking Tasks", "temp list = " + String.valueOf(temp.size()));
             if(temp.size() == 0)
             {
