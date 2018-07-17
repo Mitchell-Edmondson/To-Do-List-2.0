@@ -52,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
         //Check if there are not pre-existing tasks
         if(todoTask == null){
             todoTask = new ArrayList<String>();
-            todoTask.add("Add your first Task!");
+            todoTask.add(" ");
         }
-        
+
         //Set up recycler view
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -96,5 +96,6 @@ public class MainActivity extends AppCompatActivity {
         todoTask.add(editText.getText().toString());
         //Notify recyclerview and add it to screen
         mAdapter.notifyItemInserted(todoTask.size() - 1);
+        mRecyclerView.scrollToPosition(todoTask.size() - 1);
     }
 }
