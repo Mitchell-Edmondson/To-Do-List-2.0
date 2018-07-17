@@ -3,7 +3,6 @@ package com.example.android.to_do_list_2_0;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Room;
 import android.content.Context;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -11,20 +10,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
 import com.example.android.to_do_list_2_0.Adapters.myAdapter;
 import com.example.android.to_do_list_2_0.Fragments.addToDo;
-
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
 import com.example.android.to_do_list_2_0.Room.Task;
 import com.example.android.to_do_list_2_0.Room.taskDatabase;
 import com.example.android.to_do_list_2_0.ViewModel.ViewModel;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -41,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<String> todoTask;
+    private ArrayList<String> todoTask = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +45,16 @@ public class MainActivity extends AppCompatActivity {
         myTaskDatabase = Room.databaseBuilder(getApplicationContext(), taskDatabase.class,
                 "userTaskDB").build();
 
+        //Dummy add
+        todoTask.add("dlklkglkhgkhlkglkgg");
+        todoTask.add("d");todoTask.add("d");todoTask.add("d");todoTask.add("d");todoTask.add("d");todoTask.add("d");
+
+
+
         //Set up recycler view
+        mRecyclerView = findViewById(R.id.recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+
         mAdapter = new myAdapter(todoTask);
         mRecyclerView.setAdapter(mAdapter);
         mLayoutManager = new LinearLayoutManager(this);
@@ -80,17 +81,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateScreen(View view){
-        //Exit the fragment
-        getSupportFragmentManager().popBackStack();
+
         //Get the text the user entered
         EditText editText = findViewById(R.id.add_todo_edit_text);
+        //Exit the fragment
+        getSupportFragmentManager().popBackStack();
+
         //Get the id of the task
-        mRecyclerView = findViewById(R.id.recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-        //Insert task into database
+        //Insert task into database and add it to arraylist
         viewModel.insert(editText.getText().toString(), mRecyclerView.getChildCount() - 1);
-        //Read the task back
-        Task task = viewModel.readTask(mRecyclerView.getChildCount() - 1);
+        todoTask.add(editText.getText().toString());
+
+        mAdapter.notifyItemInserted(todoTask.size() - 1);
+
 
     }
 }

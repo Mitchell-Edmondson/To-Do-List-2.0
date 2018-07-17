@@ -1,7 +1,10 @@
 package com.example.android.to_do_list_2_0.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.example.android.to_do_list_2_0.R;
@@ -14,9 +17,10 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView mTextView;
-        public ViewHolder(TextView v) {
-            super(v);
-            mTextView = v;
+
+        public ViewHolder(View view) {
+            super(view);
+            mTextView = view.findViewById(R.id.text_item_number);
         }
     }
 
@@ -29,11 +33,12 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
     @Override
     public myAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
-        // create a new view
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recycler_view, parent, false);
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        Context context = parent.getContext();
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+
+        View view = layoutInflater.inflate(R.layout.item_layout, parent, false);
+        ViewHolder viewHolder = new ViewHolder(view);
+        return viewHolder;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
