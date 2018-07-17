@@ -16,7 +16,7 @@ public interface taskDao {
     void insertUserTask(Task task);
 
     @Query("SELECT * FROM userTask")
-    List<Task> getAllTasks();
+    LiveData<List<Task>> getAllTasks();
 
     @Query("SELECT * FROM userTask WHERE ID = :id")
     Task getTask(Integer id);

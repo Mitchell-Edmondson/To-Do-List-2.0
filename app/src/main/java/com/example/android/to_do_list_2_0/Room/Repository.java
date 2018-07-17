@@ -12,7 +12,7 @@ import static com.example.android.to_do_list_2_0.MainActivity.myTaskDatabase;
 //Handles data operations to database
 public class Repository {
 
-    private Task task;
+    private taskDao taskDao;
     private LiveData<List<Task>> allTasks;
 
     public void insert(Task task)
@@ -20,6 +20,12 @@ public class Repository {
         new insertTask().execute(task);
     }
 
+    public Repository(Application application) {
+        taskDatabase db = taskDatabase.getDatabase(application);
+        taskDao = db.taskDao();
+        allTasks = taskDao.getAllTasks();
+
+    }
     //LiveData notifies when data has changed
     public LiveData<List<Task>> getAllTasks(){
         return allTasks;
@@ -91,7 +97,7 @@ public class Repository {
 
         @Override
         protected List<Task> doInBackground(Void... voids) {
-            temp = myTaskDatabase.taskDao().getAllTasks();
+            //temp = myTaskDatabase.taskDao().getAllTasks();
             Log.d("Checking Tasks", "temp list = " + String.valueOf(temp.size()));
             if(temp.size() == 0)
             {

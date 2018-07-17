@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 // TODO: 16/07/18
 /*
-    Display Tasks in a recyclerView
+    Work on start up
 
 */
 public class MainActivity extends AppCompatActivity {
@@ -45,11 +45,7 @@ public class MainActivity extends AppCompatActivity {
         myTaskDatabase = Room.databaseBuilder(getApplicationContext(), taskDatabase.class,
                 "userTaskDB").build();
 
-        //Dummy add
-        todoTask.add("dlklkglkhgkhlkglkgg");
-        todoTask.add("d");todoTask.add("d");todoTask.add("d");todoTask.add("d");todoTask.add("d");todoTask.add("d");
-
-
+        viewModel.startUp();
 
         //Set up recycler view
         mRecyclerView = findViewById(R.id.recycler_view);
@@ -86,14 +82,11 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = findViewById(R.id.add_todo_edit_text);
         //Exit the fragment
         getSupportFragmentManager().popBackStack();
-
         //Get the id of the task
         //Insert task into database and add it to arraylist
         viewModel.insert(editText.getText().toString(), mRecyclerView.getChildCount() - 1);
         todoTask.add(editText.getText().toString());
-
+        //Notify recyclerview and add it to screen
         mAdapter.notifyItemInserted(todoTask.size() - 1);
-
-
     }
 }

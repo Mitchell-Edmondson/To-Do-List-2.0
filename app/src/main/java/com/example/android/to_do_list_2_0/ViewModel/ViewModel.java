@@ -18,7 +18,7 @@ public class ViewModel extends AndroidViewModel {
 
     public ViewModel(@NonNull Application application) {
         super(application);
-        repository = new Repository();
+        repository = new Repository(application);
         allTasks = repository.getAllTasks();
     }
 
@@ -38,6 +38,12 @@ public class ViewModel extends AndroidViewModel {
     public Task readTask(int id)
     {
         return repository.read(id);
+    }
+
+    //Checks the database for any existing tasks when first being opened
+    public void startUp() {
+        List<Task> tasks;
+
     }
 
 }
