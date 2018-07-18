@@ -4,8 +4,11 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.Entity;
 
+import java.io.Serializable;
+
 @Entity(tableName = "userTask")
-public class Task {
+//Implements serializable to be able to pass task object to fragment
+public class Task implements Serializable {
 
     @PrimaryKey
     private int id;
