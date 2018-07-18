@@ -15,6 +15,8 @@ import com.example.android.to_do_list_2_0.Adapters.myAdapter;
 import com.example.android.to_do_list_2_0.Fragments.addToDo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ScrollView;
+
 import com.example.android.to_do_list_2_0.Room.Task;
 import com.example.android.to_do_list_2_0.Room.taskDatabase;
 import com.example.android.to_do_list_2_0.ViewModel.ViewModel;
@@ -26,6 +28,12 @@ import java.util.List;
 /*
     Work on start up
 
+    --Debug--
+    Can press + button multiple times
+    onStartUp
+
+    add 1 close
+    add 2 3 and close
 */
 public class MainActivity extends AppCompatActivity {
 
@@ -43,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //Creating the ViewModel
         viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+
         //Initalize the database
         myTaskDatabase = Room.databaseBuilder(getApplicationContext(), taskDatabase.class,
                 "userTaskDB").build();
@@ -52,8 +61,9 @@ public class MainActivity extends AppCompatActivity {
         //Check if there are not pre-existing tasks
         if(todoTask == null){
             todoTask = new ArrayList<String>();
-            todoTask.add(" ");
+            todoTask.add("Add your first Task!");
         }
+        Log.d("startUp", "size of todoTasks = " + String.valueOf(todoTask.size()));
 
         //Set up recycler view
         mRecyclerView = findViewById(R.id.recycler_view);
@@ -92,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().popBackStack();
         //Get the id of the task
         //Insert task into database and add it to arraylist
-        viewModel.insert(editText.getText().toString(), mRecyclerView.getChildCount() - 1);
+        viewModel.insert(editText.getText().toString(), mRecyclerView.getChildCount());
         todoTask.add(editText.getText().toString());
         //Notify recyclerview and add it to screen
         mAdapter.notifyItemInserted(todoTask.size() - 1);

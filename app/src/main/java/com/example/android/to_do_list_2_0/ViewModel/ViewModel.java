@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.example.android.to_do_list_2_0.Room.Repository;
 import com.example.android.to_do_list_2_0.Room.Task;
@@ -52,6 +53,7 @@ public class ViewModel extends AndroidViewModel {
             //Add each user task to arraylist
             for(Task t: tasks){
                 todoTasks.add(t.getUserTask());
+                Log.d("startUp", "Have task = " + t.getUserTask() + " and ID = " + String.valueOf(t.getId()));
             }
             return todoTasks;
         }

@@ -6,6 +6,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import com.example.android.to_do_list_2_0.R;
 import java.util.ArrayList;
@@ -16,11 +17,11 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView mTextView;
+        public Button mbutton;
 
         public ViewHolder(View view) {
             super(view);
-            mTextView = view.findViewById(R.id.text_item_number);
+            mbutton = view.findViewById(R.id.button_item_number);
         }
     }
 
@@ -46,7 +47,7 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(todoTask.get(position));
+        holder.mbutton.setText(todoTask.get(position));
 
     }
 
