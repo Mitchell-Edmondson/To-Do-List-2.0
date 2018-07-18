@@ -58,13 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
         todoTask = viewModel.startUp();
 
-        //Check if there are not pre-existing tasks
-        if(todoTask == null){
-            todoTask = new ArrayList<String>();
-            todoTask.add("Add your first Task!");
-        }
-        Log.d("startUp", "size of todoTasks = " + String.valueOf(todoTask.size()));
-
         //Set up recycler view
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -91,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
         fragmentTransaction.commit();
-
     }
 
     public void updateScreen(View view){

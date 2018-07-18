@@ -57,7 +57,7 @@ public class ViewModel extends AndroidViewModel {
             }
             return todoTasks;
         }
-        return null;
+        return new ArrayList<String>();
 
     }
 
