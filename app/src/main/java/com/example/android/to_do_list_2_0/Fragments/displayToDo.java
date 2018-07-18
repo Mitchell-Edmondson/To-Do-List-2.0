@@ -7,8 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import com.example.android.to_do_list_2_0.R;
+import com.example.android.to_do_list_2_0.Room.Task;
 
 public class displayToDo extends Fragment {
 
@@ -18,9 +20,23 @@ public class displayToDo extends Fragment {
 
         //Get the position of the button that was clicked
         Bundle bundle = getArguments();
+        Task task = (Task) bundle.getSerializable("todoTask");
+
         View view = inflater.inflate(R.layout.display_to_do_layout, container, false);
+
+        //Set the textview to display the ToDo
         TextView textView = view.findViewById(R.id.textview_display_to_do);
-        textView.setText(String.valueOf(bundle.get("Index")));
+        textView.setText(String.valueOf(task.getUserTask()));
+
+        //Delete this todoTask
+        Button button = view.findViewById(R.id.button_update_to_do);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+            }
+        });
+
         return view;
     }
 }

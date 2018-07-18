@@ -16,8 +16,11 @@ import com.example.android.to_do_list_2_0.Fragments.addToDo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import com.example.android.to_do_list_2_0.Fragments.displayToDo;
+import com.example.android.to_do_list_2_0.Room.Task;
 import com.example.android.to_do_list_2_0.Room.taskDatabase;
 import com.example.android.to_do_list_2_0.ViewModel.ViewModel;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 // TODO: 16/07/18
@@ -63,8 +66,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Start the fragment to create a To Do item
-    public void createAddToDo(View view)
-    {
+    public void createAddToDo(View view) {
         //Start fragment for adding a To Do
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -95,14 +97,15 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.scrollToPosition(todoTask.size() - 1);
     }
 
-    public void displayToDo(int index)
-    {
+    public void displayToDo(int ID){
+        //Read the task with the given ID
+        Task task = viewModel.readTask(ID);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         Bundle bundle = new Bundle();
-        bundle.putInt("Index", index);
+        bundle.putSerializable("todoTask", (Serializable) task);
 
         displayToDo fragment = new displayToDo();
         fragment.setArguments(bundle);
@@ -110,6 +113,10 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.addToBackStack(null);
 
         fragmentTransaction.commit();
+    }
+
+    public void deleteToDo(View view){
+
     }
 
 }
