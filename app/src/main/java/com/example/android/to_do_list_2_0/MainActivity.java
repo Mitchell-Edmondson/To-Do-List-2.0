@@ -15,14 +15,10 @@ import com.example.android.to_do_list_2_0.Adapters.myAdapter;
 import com.example.android.to_do_list_2_0.Fragments.addToDo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ScrollView;
-
-import com.example.android.to_do_list_2_0.Room.Task;
+import com.example.android.to_do_list_2_0.Fragments.displayToDo;
 import com.example.android.to_do_list_2_0.Room.taskDatabase;
 import com.example.android.to_do_list_2_0.ViewModel.ViewModel;
-
 import java.util.ArrayList;
-import java.util.List;
 
 // TODO: 16/07/18
 /*
@@ -30,10 +26,7 @@ import java.util.List;
 
     --Debug--
     Can press + button multiple times
-    onStartUp
 
-    add 1 close
-    add 2 3 and close
 */
 public class MainActivity extends AppCompatActivity {
 
@@ -62,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
 
-        mAdapter = new myAdapter(todoTask);
+        mAdapter = new myAdapter(todoTask, this);
         mRecyclerView.setAdapter(mAdapter);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -76,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         addToDo fragment = new addToDo();
-        fragmentTransaction.replace(R.id.add_todo_container, fragment);
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.addToBackStack(null);
 
         //Force the keyboard to pop up
@@ -101,4 +94,22 @@ public class MainActivity extends AppCompatActivity {
         mAdapter.notifyItemInserted(todoTask.size() - 1);
         mRecyclerView.scrollToPosition(todoTask.size() - 1);
     }
+
+    public void displayToDo(int index)
+    {
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("Index", index);
+
+        displayToDo fragment = new displayToDo();
+        fragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+
+        fragmentTransaction.commit();
+    }
+
 }
