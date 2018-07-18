@@ -74,7 +74,7 @@ public class Repository {
 
         @Override
         protected Void doInBackground(Task... params) {
-            Log.d("insertTask", "inserting " + String.valueOf(params[0].getUserTask()) + "ID + " + String.valueOf(params[0].getId()));
+            Log.d("insertTask", "inserting " + String.valueOf(params[0].getUserTask()) + "ID = " + String.valueOf(params[0].getId()));
             myTaskDatabase.taskDao().insertUserTask(params[0]);
             return null;
         }

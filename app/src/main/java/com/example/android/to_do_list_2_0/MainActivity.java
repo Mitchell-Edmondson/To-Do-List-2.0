@@ -94,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().popBackStack();
         //Get the id of the task
         //Insert task into database and add it to arraylist
-        viewModel.insert(editText.getText().toString(), mRecyclerView.getChildCount());
+        Log.d("insertTask", "child count (ID) = " + String.valueOf(mLayoutManager.getChildCount()));
+        viewModel.insert(editText.getText().toString(), mLayoutManager.getItemCount());
         todoTask.add(editText.getText().toString());
         //Notify recyclerview and add it to screen
         mAdapter.notifyItemInserted(todoTask.size() - 1);
