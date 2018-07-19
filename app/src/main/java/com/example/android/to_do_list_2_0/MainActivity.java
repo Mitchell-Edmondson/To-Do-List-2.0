@@ -128,9 +128,18 @@ public class MainActivity extends AppCompatActivity {
 
     //User hit the "Delete ToDo Button"
     public void deleteToDo(View view){
-        //Delete todoTask from database
-        viewModel.deleteTask(view.getId());
 
+        //Exit the fragment
+        getSupportFragmentManager().popBackStack();
+
+        //Delete todoTask from database (ID of button is equal to ID in database)
+        viewModel.deleteTask(view.getId());
+        //Remove todoTask from list
+        Log.d("deleteTask", "view id = " + String.valueOf(view.getId()));
+        todoTask = viewModel.removeTask(view.getId(), todoTask);
+        //Update screen (getting rid of button to display this task)
+        mAdapter.notifyItemRemoved(view.getId());
+        mAdapter.notifyItemRangeChanged(0, todoTask.size());
     }
 
 }

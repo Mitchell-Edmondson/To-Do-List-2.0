@@ -64,4 +64,18 @@ public class ViewModel extends AndroidViewModel {
         repository.delete(ID);
     }
 
+    //Removes the task from the arraylist. Have to search through the arraylist for the right index,
+    //because the tasks can move around each time the app is opened
+    public ArrayList<Task> removeTask(int ID, ArrayList<Task> todoTask){
+
+        for(Task t: todoTask) {
+            if (ID == t.getId()) {
+                Log.d("deleteTask", "task removing = " + t.getUserTask());
+                todoTask.remove(t);
+                return todoTask;
+            }
+        }
+        return null;
+    }
+
 }
