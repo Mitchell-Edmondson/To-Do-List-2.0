@@ -3,6 +3,8 @@ package com.example.android.to_do_list_2_0;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -107,6 +109,13 @@ public class MainActivity extends AppCompatActivity {
 
     //User clicked on a todoTask in recyclerview. Start the fragment that displays the task
     public void displayToDo(int ID){
+
+        //Check to get rid of the previous displayed fragment
+        Fragment test = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if(test != null && test.isVisible()){
+            //Exit the fragment
+            getSupportFragmentManager().popBackStack();
+        }
 
         //Read the task with the given ID
         Task task = viewModel.readTask(ID);
