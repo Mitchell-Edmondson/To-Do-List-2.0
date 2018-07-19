@@ -19,7 +19,6 @@ import com.example.android.to_do_list_2_0.Fragments.displayToDo;
 import com.example.android.to_do_list_2_0.Room.Task;
 import com.example.android.to_do_list_2_0.Room.taskDatabase;
 import com.example.android.to_do_list_2_0.ViewModel.ViewModel;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -33,13 +32,16 @@ import java.util.ArrayList;
 */
 public class MainActivity extends AppCompatActivity {
 
+    //Variable for viewmodel
     private ViewModel viewModel;
+    //Variable for database
     public static taskDatabase myTaskDatabase;
 
+    //Variables for recyclerview setup
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<String> todoTask;
+    private ArrayList<Task> todoTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +54,12 @@ public class MainActivity extends AppCompatActivity {
         myTaskDatabase = Room.databaseBuilder(getApplicationContext(), taskDatabase.class,
                 "userTaskDB").build();
 
+        //Check the database for any pre-existing tasks
         todoTask = viewModel.startUp();
 
         //Set up recycler view
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
-
         mAdapter = new myAdapter(todoTask, this);
         mRecyclerView.setAdapter(mAdapter);
         mLayoutManager = new LinearLayoutManager(this);
@@ -65,9 +67,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //Start the fragment to create a To Do item
+    //User hit "+" button. Start the fragment to enter a todoTask
     public void createAddToDo(View view) {
-        //Start fragment for adding a To Do
+
+        //Start fragment for adding a ToDo
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         addToDo fragment = new addToDo();
@@ -81,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    //User hit the "Done" button. Add in the new Task to the database and display task on screen
     public void updateScreen(View view){
 
         //Get the text the user entered
@@ -90,20 +94,27 @@ public class MainActivity extends AppCompatActivity {
         //Get the id of the task
         //Insert task into database and add it to arraylist
         Log.d("insertTask", "child count (ID) = " + String.valueOf(mLayoutManager.getChildCount()));
-        viewModel.insert(editText.getText().toString(), mLayoutManager.getItemCount());
-        todoTask.add(editText.getText().toString());
+        Long ID = viewModel.insert(editText.getText().toString(), mLayoutManager.getItemCount());
+        Task task = new Task();
+        task.setUserTask(editText.getText().toString());
+        Log.d("insertTask", "Actual ID of task = " + String.valueOf(ID));
+        task.setId(ID.intValue());
+        todoTask.add(task);
         //Notify recyclerview and add it to screen
         mAdapter.notifyItemInserted(todoTask.size() - 1);
         mRecyclerView.scrollToPosition(todoTask.size() - 1);
     }
 
+    //User clicked on a todoTask in recyclerview. Start the fragment that displays the task
     public void displayToDo(int ID){
+
         //Read the task with the given ID
         Task task = viewModel.readTask(ID);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
+        //Pass in the task to the fragment
         Bundle bundle = new Bundle();
         bundle.putSerializable("todoTask", (Serializable) task);
 
@@ -115,7 +126,10 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    //User hit the "Delete ToDo Button"
     public void deleteToDo(View view){
+        //Delete todoTask from database
+        viewModel.deleteTask(view.getId());
 
     }
 

@@ -11,11 +11,13 @@ import android.widget.Button;
 import com.example.android.to_do_list_2_0.Fragments.displayToDo;
 import com.example.android.to_do_list_2_0.MainActivity;
 import com.example.android.to_do_list_2_0.R;
+import com.example.android.to_do_list_2_0.Room.Task;
+
 import java.util.ArrayList;
 
 public class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
 
-    private ArrayList<String> todoTask;
+    private ArrayList<Task> todoTask;
     private Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -29,7 +31,7 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public myAdapter(ArrayList<String> todoTask, Context context) {
+    public myAdapter(ArrayList<Task> todoTask, Context context) {
         this.context = context;
         this.todoTask = todoTask;
     }
@@ -47,15 +49,16 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mbutton.setText(todoTask.get(position));
+        holder.mbutton.setText(todoTask.get(position).getUserTask());
+        holder.mbutton.setId(todoTask.get(position).getId());
         holder.mbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MainActivity mainActivity = (MainActivity) context;
-                mainActivity.displayToDo(position);
+                mainActivity.displayToDo(holder.mbutton.getId());
 
             }
         });

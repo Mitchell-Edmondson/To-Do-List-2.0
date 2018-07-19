@@ -24,12 +24,12 @@ public class ViewModel extends AndroidViewModel {
         allTasks = repository.getAllTasks();
     }
 
-    public void insert(String todo, int id) {
+    public Long insert(String todo, int id) {
 
         Task task = new Task();
         task.setUserTask(todo);
         task.setId(id);
-        repository.insert(task);
+        return repository.insert(task);
     }
 
     public List<Task> readAll()
@@ -43,22 +43,25 @@ public class ViewModel extends AndroidViewModel {
     }
 
     //Checks the database for any existing tasks when first being opened
-    public ArrayList<String> startUp()
-    {
+    public ArrayList<Task> startUp() {
         List<Task> tasks = repository.readAll();
         //There are pre-existing tasks in database
         if(tasks != null){
 
-            ArrayList<String> todoTasks = new ArrayList<String>();
+            ArrayList<Task> todoTasks = new ArrayList<Task>();
             //Add each user task to arraylist
             for(Task t: tasks){
-                todoTasks.add(t.getUserTask());
+                todoTasks.add(t);
                 Log.d("startUp", "Have task = " + t.getUserTask() + " and ID = " + String.valueOf(t.getId()));
             }
             return todoTasks;
         }
-        return new ArrayList<String>();
+        return new ArrayList<Task>();
 
+    }
+
+    public void deleteTask(Integer ID){
+        repository.delete(ID);
     }
 
 }

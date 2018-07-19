@@ -13,7 +13,7 @@ import java.util.List;
 public interface taskDao {
 
     @Insert(onConflict = 5)
-    void insertUserTask(Task task);
+    Long insertUserTask(Task task);
 
     @Query("SELECT * FROM userTask")
     LiveData<List<Task>> getAllTasksLD();
@@ -27,8 +27,8 @@ public interface taskDao {
     @Query("DELETE FROM userTask")
     void deleteAllTasks();
 
-    @Delete
-    int deleteTask(Task task);
+    @Query("DELETE FROM userTask WHERE ID = :ID" )
+    int deleteTask(Integer ID);
 
     @Update
     void updateUser(Task task);

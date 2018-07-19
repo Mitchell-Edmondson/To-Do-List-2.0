@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.android.to_do_list_2_0.MainActivity;
 import com.example.android.to_do_list_2_0.R;
 import com.example.android.to_do_list_2_0.Room.Task;
 
@@ -28,14 +30,9 @@ public class displayToDo extends Fragment {
         TextView textView = view.findViewById(R.id.textview_display_to_do);
         textView.setText(String.valueOf(task.getUserTask()));
 
-        //Delete this todoTask
-        Button button = view.findViewById(R.id.button_update_to_do);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        //Set the id of the button equal to the id of the task so we can access it
+        Button button = view.findViewById(R.id.button_delete_to_do);
+        button.setId(task.getId());
 
         return view;
     }

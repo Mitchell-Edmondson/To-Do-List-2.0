@@ -15,9 +15,16 @@ public class Repository {
     private taskDao taskDao;
     private LiveData<List<Task>> allTasks;
 
-    public void insert(Task task)
+    public Long insert(Task task)
     {
-        new insertTask().execute(task);
+        try {
+            return new insertTask().execute(task).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public Repository(Application application) {
@@ -59,9 +66,9 @@ public class Repository {
         new deleteAllTasks().execute();
     }
 
-    public void delete(Task task)
+    public void delete(Integer ID)
     {
-        new deleteTask().execute(task);
+        new deleteTask().execute(ID);
     }
 
     public void update(Task task)
@@ -69,14 +76,21 @@ public class Repository {
         new updateTask().execute(task);
     }
 
-    private static class insertTask extends AsyncTask<Task, Void, Void>
+    private static class insertTask extends AsyncTask<Task, Void, Long>
     {
 
         @Override
-        protected Void doInBackground(Task... params) {
+        protected Long doInBackground(Task... params) {
             Log.d("insertTask", "inserting " + String.valueOf(params[0].getUserTask()) + "ID = " + String.valueOf(params[0].getId()));
-            myTaskDatabase.taskDao().insertUserTask(params[0]);
-            return null;
+            Long ID = Long.valueOf(-1);
+            //This is a check in case of a conflict while inserting into database
+            while(ID == -1) {
+                //Try inserting it and update the ID of the task to attempt again
+                ID = myTaskDatabase.taskDao().insertUserTask(params[0]);
+                params[0].setId(params[0].getId() + 1);
+                Log.d("insertTask", "ID = " + String.valueOf(ID));
+            }
+            return ID;
         }
     }
 
@@ -116,12 +130,11 @@ public class Repository {
         }
     }
 
-    private static class deleteTask extends AsyncTask<Task, Void, Integer>
+    private static class deleteTask extends AsyncTask<Integer, Void, Integer>
     {
         @Override
-        protected Integer doInBackground(Task... params) {
-            Log.d("deleteTask", "task = " +  params[0].getUserTask());
-            Log.d("deleteTask", "task id = " +  params[0].getId());
+        protected Integer doInBackground(Integer... params) {
+            Log.d("deleteTask", "task id = " +  params[0]);
             return myTaskDatabase.taskDao().deleteTask(params[0]);
         }
     }
