@@ -78,4 +78,8 @@ public class ViewModel extends AndroidViewModel {
         return null;
     }
 
+    public void updateTask(Task task){
+        repository.update(task);
+    }
+
 }

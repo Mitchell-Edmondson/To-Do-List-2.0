@@ -160,8 +160,15 @@ public class MainActivity extends AppCompatActivity {
 
         //Send the textview string to the fragment in a bundle
         TextView textView = findViewById(R.id.textview_display_to_do);
+
+        //Create the task to pass to fragment
+        Task task = new Task();
+        task.setId(view.getId());
+        task.setUserTask(textView.getText().toString());
+
+        //Create the bundle for fragment
         Bundle bundle = new Bundle();
-        bundle.putString("todoTask", textView.getText().toString());
+        bundle.putSerializable("todoTask", task);
 
         //Start fragment for updating a ToDo
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -178,8 +185,28 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    //User hits the "Update Button" so now we actual update the db and screen
+    //User hits the "Update Button" so now we actual update the db and screen (view ID is same as task in database)
     public void updateToDoTask(View view){
 
+        //Exit the fragment
+        getSupportFragmentManager().popBackStack();
+
+        //Create the new task and update the task in the database
+        Task task = new Task();
+        task.setId(view.getId());
+        EditText editText = findViewById(R.id.edit_text_update);
+        task.setUserTask(editText.getText().toString());
+        Log.d("updateTask", "updating task id = " + String.valueOf(task.getId()));
+        viewModel.updateTask(task);
+
+        //Sketchy part, so I do not know the actual position of the task in teh arraylist at this point
+        //So we search through the arraylist until we find a match, taking O(n) time
+        for(int i = 0; i < todoTask.size(); i++){
+            Task t = todoTask.get(i);
+            if(t.getId() == task.getId()){
+                todoTask.set(i, task);
+                mAdapter.notifyItemChanged(i);
+            }
+        }
     }
 }

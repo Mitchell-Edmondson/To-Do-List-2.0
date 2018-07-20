@@ -8,10 +8,12 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.android.to_do_list_2_0.R;
+import com.example.android.to_do_list_2_0.Room.Task;
 
 public class updateToDo extends Fragment {
 
@@ -22,11 +24,17 @@ public class updateToDo extends Fragment {
 
         //Get the string (task) passed in
         Bundle bundle = getArguments();
+        Task task = (Task) bundle.getSerializable("todoTask");
 
+        //Update the edittext
         EditText editText = view.findViewById(R.id.edit_text_update);
-        editText.setText(bundle.getString("todoTask"));
+        editText.setText(task.getUserTask());
         editText.requestFocus();
         editText.setOnEditorActionListener(new DoneOnEditorActionListener());
+
+        //Give the update button the task ID to access later
+        Button button = view.findViewById(R.id.button_update);
+        button.setId(task.getId());
         return view;
     }
 
