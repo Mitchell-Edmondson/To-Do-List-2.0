@@ -158,6 +158,9 @@ public class MainActivity extends AppCompatActivity {
     //User hits the "Update ToDo Button." Start the fragment
     public void updateToDo(View view){
 
+        //Exit the display fragment
+        getSupportFragmentManager().popBackStack();
+
         //Send the textview string to the fragment in a bundle
         TextView textView = findViewById(R.id.textview_display_to_do);
 
