@@ -115,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Get rid of the onscreen keyboard
         hideKeyboard(this);
+        //Create toast saying todoTask added
+        Toast.makeText(this, "ToDo Created!", Toast.LENGTH_SHORT).show();
         //Get the text the user entered
         EditText editText = findViewById(R.id.add_todo_edit_text);
         //Exit the fragment
@@ -163,6 +165,10 @@ public class MainActivity extends AppCompatActivity {
 
     //User hit the "Delete ToDo Button"
     public void deleteToDo(View view){
+
+
+        //Create Toast
+        Toast.makeText(this, "ToDo Deleted!", Toast.LENGTH_SHORT).show();
 
         //Exit the fragment
         getSupportFragmentManager().popBackStack();
@@ -214,6 +220,9 @@ public class MainActivity extends AppCompatActivity {
     public void updateToDoTask(View view){
 
         hideKeyboard(this);
+
+        //Make Toast
+        Toast.makeText(this, "ToDo Updated!", Toast.LENGTH_SHORT);
 
         //Exit the fragment
         getSupportFragmentManager().popBackStack();

@@ -15,8 +15,7 @@ public class Repository {
     private taskDao taskDao;
     private LiveData<List<Task>> allTasks;
 
-    public Long insert(Task task)
-    {
+    public Long insert(Task task) {
         try {
             return new insertTask().execute(task).get();
         } catch (InterruptedException e) {
@@ -38,7 +37,7 @@ public class Repository {
         return allTasks;
     }
 
-    public Task read(int id){
+    public Task read(int id) {
         try {
             return new readTask().execute(id).get();
         } catch (InterruptedException e) {
@@ -49,8 +48,7 @@ public class Repository {
         return null;
     }
 
-    public List<Task> readAll()
-    {
+    public List<Task> readAll() {
         try {
             return new readAllTasks().execute().get();
         } catch (InterruptedException e) {
@@ -76,8 +74,7 @@ public class Repository {
         new updateTask().execute(task);
     }
 
-    private static class insertTask extends AsyncTask<Task, Void, Long>
-    {
+    private static class insertTask extends AsyncTask<Task, Void, Long> {
 
         @Override
         protected Long doInBackground(Task... params) {
@@ -94,8 +91,7 @@ public class Repository {
         }
     }
 
-    private static class readTask extends AsyncTask<Integer, Void, Task>
-    {
+    private static class readTask extends AsyncTask<Integer, Void, Task> {
 
         @Override
         protected Task doInBackground(Integer... params) {
@@ -105,8 +101,7 @@ public class Repository {
         }
     }
     //Might not need this anymore because of livedata
-    private static class readAllTasks extends AsyncTask<Void, Void, List<Task>>
-    {
+    private static class readAllTasks extends AsyncTask<Void, Void, List<Task>> {
         List<Task> temp;
 
         @Override
@@ -120,8 +115,7 @@ public class Repository {
         }
     }
 
-    private static class deleteAllTasks extends AsyncTask<Void, Void, Void>
-    {
+    private static class deleteAllTasks extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -130,8 +124,7 @@ public class Repository {
         }
     }
 
-    private static class deleteTask extends AsyncTask<Integer, Void, Integer>
-    {
+    private static class deleteTask extends AsyncTask<Integer, Void, Integer> {
         @Override
         protected Integer doInBackground(Integer... params) {
             Log.d("deleteTask", "task id = " +  params[0]);
@@ -139,8 +132,7 @@ public class Repository {
         }
     }
 
-    private static class updateTask extends AsyncTask<Task, Void, Void>
-    {
+    private static class updateTask extends AsyncTask<Task, Void, Void> {
 
         @Override
         protected Void doInBackground(Task... tasks) {
