@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
         hideKeyboard(this);
 
         //Make Toast
-        Toast.makeText(this, "ToDo Updated!", Toast.LENGTH_SHORT);
+        Toast.makeText(this, "ToDo Updated!", Toast.LENGTH_SHORT).show();
 
         //Exit the fragment
         getSupportFragmentManager().popBackStack();
