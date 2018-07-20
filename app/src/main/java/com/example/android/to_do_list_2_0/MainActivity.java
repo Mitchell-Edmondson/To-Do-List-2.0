@@ -151,4 +151,9 @@ public class MainActivity extends AppCompatActivity {
         mAdapter.notifyItemRangeChanged(0, todoTask.size());
     }
 
+    //User hits the "Update ToDo Button"
+    public void updateToDo(View view){
+
+    }
+
 }

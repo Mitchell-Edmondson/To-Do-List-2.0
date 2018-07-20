@@ -34,6 +34,9 @@ public class displayToDo extends Fragment {
         Button button = view.findViewById(R.id.button_delete_to_do);
         button.setId(task.getId());
 
+        button = view.findViewById(R.id.button_update_to_do);
+        button.setId(task.getId());
+
         return view;
     }
 }

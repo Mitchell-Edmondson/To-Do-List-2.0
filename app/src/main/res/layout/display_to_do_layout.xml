@@ -23,7 +23,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:textAllCaps="false"
-        android:text="Update ToDo" />
+        android:text="Update ToDo"
+        android:onClick="updateToDo"/>
 
     <Button
         android:layout_width="wrap_content"
