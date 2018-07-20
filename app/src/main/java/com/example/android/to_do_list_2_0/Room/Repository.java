@@ -7,7 +7,7 @@ import android.arch.lifecycle.LiveData;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import static com.example.android.to_do_list_2_0.MainActivity.myTaskDatabase;
+import static com.example.android.to_do_list_2_0.Activities.MainActivity.myTaskDatabase;
 
 //Handles data operations to database
 public class Repository {

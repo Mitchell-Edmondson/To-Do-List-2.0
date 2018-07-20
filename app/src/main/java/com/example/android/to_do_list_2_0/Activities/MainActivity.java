@@ -1,5 +1,6 @@
-package com.example.android.to_do_list_2_0;
+package com.example.android.to_do_list_2_0.Activities;
 
+import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Room;
 import android.content.Context;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.android.to_do_list_2_0.Fragments.displayToDo;
 import com.example.android.to_do_list_2_0.Fragments.updateToDo;
+import com.example.android.to_do_list_2_0.R;
 import com.example.android.to_do_list_2_0.Room.Task;
 import com.example.android.to_do_list_2_0.Room.taskDatabase;
 import com.example.android.to_do_list_2_0.ViewModel.ViewModel;
@@ -76,6 +78,13 @@ public class MainActivity extends AppCompatActivity {
     //User hit "+" button. Start the fragment to enter a todoTask
     public void createAddToDo(View view) {
 
+        //Check to get rid of any possible displayed task
+        Fragment test = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if(test != null && test.isVisible()){
+            //Exit the fragment
+            getSupportFragmentManager().popBackStack();
+        }
+
         //Start fragment for adding a ToDo
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -90,9 +99,22 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    //Function to hide the keyboard
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
     //User hit the "Done" button. Add in the new Task to the database and display task on screen
     public void updateScreen(View view){
 
+        //Get rid of the onscreen keyboard
+        hideKeyboard(this);
         //Get the text the user entered
         EditText editText = findViewById(R.id.add_todo_edit_text);
         //Exit the fragment
@@ -190,6 +212,8 @@ public class MainActivity extends AppCompatActivity {
 
     //User hits the "Update Button" so now we actual update the db and screen (view ID is same as task in database)
     public void updateToDoTask(View view){
+
+        hideKeyboard(this);
 
         //Exit the fragment
         getSupportFragmentManager().popBackStack();

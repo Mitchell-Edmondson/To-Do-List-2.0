@@ -1,15 +1,13 @@
 package com.example.android.to_do_list_2_0.Adapters;
 
 import android.content.Context;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import com.example.android.to_do_list_2_0.Fragments.displayToDo;
-import com.example.android.to_do_list_2_0.MainActivity;
+
+import com.example.android.to_do_list_2_0.Activities.MainActivity;
 import com.example.android.to_do_list_2_0.R;
 import com.example.android.to_do_list_2_0.Room.Task;
 

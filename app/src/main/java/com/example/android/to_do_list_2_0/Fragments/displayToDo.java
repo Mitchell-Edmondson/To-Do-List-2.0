@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.android.to_do_list_2_0.MainActivity;
 import com.example.android.to_do_list_2_0.R;
 import com.example.android.to_do_list_2_0.Room.Task;
 
