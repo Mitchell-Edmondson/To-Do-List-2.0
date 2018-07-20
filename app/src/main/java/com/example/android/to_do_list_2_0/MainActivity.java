@@ -17,7 +17,11 @@ import com.example.android.to_do_list_2_0.Adapters.myAdapter;
 import com.example.android.to_do_list_2_0.Fragments.addToDo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.android.to_do_list_2_0.Fragments.displayToDo;
+import com.example.android.to_do_list_2_0.Fragments.updateToDo;
 import com.example.android.to_do_list_2_0.Room.Task;
 import com.example.android.to_do_list_2_0.Room.taskDatabase;
 import com.example.android.to_do_list_2_0.ViewModel.ViewModel;
@@ -151,9 +155,31 @@ public class MainActivity extends AppCompatActivity {
         mAdapter.notifyItemRangeChanged(0, todoTask.size());
     }
 
-    //User hits the "Update ToDo Button"
+    //User hits the "Update ToDo Button." Start the fragment
     public void updateToDo(View view){
 
+        //Send the textview string to the fragment in a bundle
+        TextView textView = findViewById(R.id.textview_display_to_do);
+        Bundle bundle = new Bundle();
+        bundle.putString("todoTask", textView.getText().toString());
+
+        //Start fragment for updating a ToDo
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        updateToDo fragment = new updateToDo();
+        fragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+
+        //Force the keyboard to pop up
+        InputMethodManager imm = (InputMethodManager)   getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+
+        fragmentTransaction.commit();
     }
 
+    //User hits the "Update Button" so now we actual update the db and screen
+    public void updateToDoTask(View view){
+
+    }
 }
