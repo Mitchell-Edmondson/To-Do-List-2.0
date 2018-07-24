@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -51,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Task> todoTask;
 
+    //Variable for entered a todoTask
+    static final int ENTERED_TASK = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,9 +79,32 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(requestCode == ENTERED_TASK) {
+
+            if(resultCode == RESULT_OK) {
+                Task task  = new Task();
+                task.setUserTask(data.getStringExtra("todoTask"));
+                Log.d("insertTask", "child count (ID) = " + String.valueOf(mLayoutManager.getChildCount()));
+                Long ID = viewModel.insert(task.getUserTask(), mLayoutManager.getItemCount());
+                Log.d("insertTask", "Actual ID of task = " + String.valueOf(ID));
+                task.setId(ID.intValue());
+                todoTask.add(task);
+                //Notify recyclerview and add it to screen
+                mAdapter.notifyItemInserted(todoTask.size() - 1);
+                mRecyclerView.scrollToPosition(todoTask.size() - 1);
+            }
+        }
+    }
+
     //User hit "+" button. Start the fragment to enter a todoTask
     public void createAddToDo(View view) {
 
+        Intent intent = new Intent(this, com.example.android.to_do_list_2_0.Activities.addToDo.class);
+        startActivityForResult(intent, ENTERED_TASK);
+/* working code for fragment
         //Check to get rid of any possible displayed task
         Fragment test = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if(test != null && test.isVisible()){
@@ -97,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
         fragmentTransaction.commit();
+*/
     }
 
     //Function to hide the keyboard
