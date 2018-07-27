@@ -24,11 +24,12 @@ public class ViewModel extends AndroidViewModel {
         allTasks = repository.getAllTasks();
     }
 
-    public Long insert(String todo, int id) {
+    public Long insert(String todo, int id, String time) {
 
         Task task = new Task();
         task.setUserTask(todo);
         task.setId(id);
+        task.setTime(time);
         return repository.insert(task);
     }
 

@@ -29,6 +29,10 @@ public class displayToDo extends Fragment {
         TextView textView = view.findViewById(R.id.textview_display_to_do);
         textView.setText(String.valueOf(task.getUserTask()));
 
+        //Set the textview to display the time of the ToDo
+        textView = view.findViewById(R.id.textview_display_to_do_time);
+        textView.setText("Due at " + task.getTime());
+
         //Set the id of the button equal to the id of the task so we can access it
         Button button = view.findViewById(R.id.button_delete_to_do);
         button.setId(task.getId());

@@ -33,8 +33,7 @@ import java.util.ArrayList;
 
 // TODO: 16/07/18
 /*
-    Work on start up
-
+    Have a check if no task is in edittext
     --Debug--
     Can press + button multiple times
 
@@ -86,10 +85,13 @@ public class MainActivity extends AppCompatActivity {
 
             if(resultCode == RESULT_OK) {
                 Task task  = new Task();
-                task.setUserTask(data.getStringExtra("todoTask"));
+                String[] array = data.getStringArrayExtra("todoTask");
+                task.setUserTask(array[0]);
+                task.setTime(array[1]);
                 Log.d("insertTask", "child count (ID) = " + String.valueOf(mLayoutManager.getChildCount()));
-                Long ID = viewModel.insert(task.getUserTask(), mLayoutManager.getItemCount());
+                Long ID = viewModel.insert(task.getUserTask(), mLayoutManager.getItemCount(), array[1]);
                 Log.d("insertTask", "Actual ID of task = " + String.valueOf(ID));
+                Log.d("insertTask", "Time of Task = " + array[1]);
                 task.setId(ID.intValue());
                 todoTask.add(task);
                 //Notify recyclerview and add it to screen
@@ -152,11 +154,11 @@ public class MainActivity extends AppCompatActivity {
         //Get the id of the task
         //Insert task into database and add it to arraylist
         Log.d("insertTask", "child count (ID) = " + String.valueOf(mLayoutManager.getChildCount()));
-        Long ID = viewModel.insert(editText.getText().toString(), mLayoutManager.getItemCount());
+        //Long ID = viewModel.insert(editText.getText().toString(), mLayoutManager.getItemCount(), time);
         Task task = new Task();
         task.setUserTask(editText.getText().toString());
-        Log.d("insertTask", "Actual ID of task = " + String.valueOf(ID));
-        task.setId(ID.intValue());
+        //Log.d("insertTask", "Actual ID of task = " + String.valueOf(ID));
+        //task.setId(ID.intValue());
         todoTask.add(task);
         //Notify recyclerview and add it to screen
         mAdapter.notifyItemInserted(todoTask.size() - 1);
