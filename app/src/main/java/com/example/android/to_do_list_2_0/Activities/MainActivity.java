@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -32,8 +33,7 @@ import java.util.ArrayList;
 
 // TODO: 16/07/18
 /*
-    Work on start up
-
+    Have a check if no task is in edittext
     --Debug--
     Can press + button multiple times
 
@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Task> todoTask;
+
+    //Variable for entered a todoTask
+    static final int ENTERED_TASK = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +78,35 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(requestCode == ENTERED_TASK) {
+
+            if(resultCode == RESULT_OK) {
+                Task task  = new Task();
+                String[] array = data.getStringArrayExtra("todoTask");
+                task.setUserTask(array[0]);
+                task.setTime(array[1]);
+                Log.d("insertTask", "child count (ID) = " + String.valueOf(mLayoutManager.getChildCount()));
+                Long ID = viewModel.insert(task.getUserTask(), mLayoutManager.getItemCount(), array[1]);
+                Log.d("insertTask", "Actual ID of task = " + String.valueOf(ID));
+                Log.d("insertTask", "Time of Task = " + array[1]);
+                task.setId(ID.intValue());
+                todoTask.add(task);
+                //Notify recyclerview and add it to screen
+                mAdapter.notifyItemInserted(todoTask.size() - 1);
+                mRecyclerView.scrollToPosition(todoTask.size() - 1);
+            }
+        }
+    }
+
     //User hit "+" button. Start the fragment to enter a todoTask
     public void createAddToDo(View view) {
 
+        Intent intent = new Intent(this, com.example.android.to_do_list_2_0.Activities.addToDo.class);
+        startActivityForResult(intent, ENTERED_TASK);
+/* working code for fragment
         //Check to get rid of any possible displayed task
         Fragment test = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if(test != null && test.isVisible()){
@@ -97,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
         fragmentTransaction.commit();
+*/
     }
 
     //Function to hide the keyboard
@@ -124,11 +154,11 @@ public class MainActivity extends AppCompatActivity {
         //Get the id of the task
         //Insert task into database and add it to arraylist
         Log.d("insertTask", "child count (ID) = " + String.valueOf(mLayoutManager.getChildCount()));
-        Long ID = viewModel.insert(editText.getText().toString(), mLayoutManager.getItemCount());
+        //Long ID = viewModel.insert(editText.getText().toString(), mLayoutManager.getItemCount(), time);
         Task task = new Task();
         task.setUserTask(editText.getText().toString());
-        Log.d("insertTask", "Actual ID of task = " + String.valueOf(ID));
-        task.setId(ID.intValue());
+        //Log.d("insertTask", "Actual ID of task = " + String.valueOf(ID));
+        //task.setId(ID.intValue());
         todoTask.add(task);
         //Notify recyclerview and add it to screen
         mAdapter.notifyItemInserted(todoTask.size() - 1);
@@ -227,11 +257,15 @@ public class MainActivity extends AppCompatActivity {
         //Exit the fragment
         getSupportFragmentManager().popBackStack();
 
+        //Read the task from the database in order to get the time of the task
+        Task temp = viewModel.readTask(view.getId());
+
         //Create the new task and update the task in the database
         Task task = new Task();
         task.setId(view.getId());
         EditText editText = findViewById(R.id.edit_text_update);
         task.setUserTask(editText.getText().toString());
+        task.setTime(temp.getTime());
         Log.d("updateTask", "updating task id = " + String.valueOf(task.getId()));
         viewModel.updateTask(task);
 
