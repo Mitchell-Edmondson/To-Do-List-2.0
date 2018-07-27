@@ -257,11 +257,15 @@ public class MainActivity extends AppCompatActivity {
         //Exit the fragment
         getSupportFragmentManager().popBackStack();
 
+        //Read the task from the database in order to get the time of the task
+        Task temp = viewModel.readTask(view.getId());
+
         //Create the new task and update the task in the database
         Task task = new Task();
         task.setId(view.getId());
         EditText editText = findViewById(R.id.edit_text_update);
         task.setUserTask(editText.getText().toString());
+        task.setTime(temp.getTime());
         Log.d("updateTask", "updating task id = " + String.valueOf(task.getId()));
         viewModel.updateTask(task);
 
