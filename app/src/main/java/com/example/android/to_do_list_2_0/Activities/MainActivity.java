@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 String amOrPm = viewModel.getAmOrPm(task.getTime(), task.getTime().indexOf(':'));
 
                 Log.d("alarm", "amorpm = " + amOrPm);
-                if(amOrPm.equals(" PM")){
+                if(amOrPm.equals("PM")){
                     int newHour = Integer.valueOf(hour) + 12;
                     hour = String.valueOf(newHour);
                 }
@@ -160,8 +160,9 @@ public class MainActivity extends AppCompatActivity {
                 PendingIntent pendingIntentAlarm = PendingIntent.getBroadcast(getApplicationContext(), task.getId(), intentAlarm, 0);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntentAlarm);
 
+                //For newer os problem here. Have to test it more
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, 5000, pendingIntentAlarm);
+                    //alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, 5000, pendingIntentAlarm);
                 }
                 Log.d("alarm", "starting alarm");
 
