@@ -42,5 +42,8 @@ dependencies {
     //Notifications
     implementation "com.android.support:support-compat:27.1.1"
 
+    //For byte array
+    implementation 'org.apache.commons:commons-lang3:3.5'
+
 
 }
