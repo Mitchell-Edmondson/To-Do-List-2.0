@@ -12,21 +12,21 @@ import android.widget.Toast;
 
 import com.example.android.to_do_list_2_0.Activities.MainActivity;
 import com.example.android.to_do_list_2_0.R;
+import com.example.android.to_do_list_2_0.Room.Task;
 
 public class Alarm extends BroadcastReceiver {
 
-    String CHANNEL_ID = "My_Channel_Id";
+    String CHANNEL_ID = "Mitchell's_Channel_Id";
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("alarm", "in onrecieve");
-        Toast.makeText(context, "AYYYYY BOY", Toast.LENGTH_LONG).show();
-
 
         Bundle bundle = intent.getExtras();
-        int taskId = bundle.getInt("notification_startup");
-        Log.d("alarm", "bundle = " + taskId);
+        Task task = (Task) bundle.get("notification_startup");
+        Log.d("alarm", "bundle = " + task.getTime());
+        Toast.makeText(context, "Did you do it?", Toast.LENGTH_LONG).show();
         Intent intent1 = new Intent(context, MainActivity.class);
-        intent1.putExtra("notification_startup", taskId);
+        intent1.putExtra("notification_startup", task.getId());
 
         intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -36,7 +36,7 @@ public class Alarm extends BroadcastReceiver {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.heineken_logo)
                 .setContentTitle("To-Do-List")
-                .setContentText(String.valueOf(taskId))
+                .setContentText(task.getUserTask())
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
@@ -44,7 +44,7 @@ public class Alarm extends BroadcastReceiver {
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         // notificationId is a unique int for each notification that you must define
-        int notificationId = taskId;//task.getId();
+        int notificationId = task.getId();
         notificationManager.notify(notificationId, mBuilder.build());
 
     }

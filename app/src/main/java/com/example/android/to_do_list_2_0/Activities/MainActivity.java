@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                 //Create the alarm
                 alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                 Intent intentAlarm = new Intent(MainActivity.this, Alarm.class);
-                intentAlarm.putExtra("notification_startup", task.getId());
+                intentAlarm.putExtra("notification_startup", task);
 
                 String hour = viewModel.getHour(task.getTime(), task.getTime().indexOf(':'));
                 String minute = viewModel.getMinute(task.getTime(), task.getTime().indexOf(':'));
