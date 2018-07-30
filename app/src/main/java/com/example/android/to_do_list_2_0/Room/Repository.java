@@ -118,7 +118,6 @@ public class Repository {
     }
 
     private static class deleteAllTasks extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected Void doInBackground(Void... voids) {
             myTaskDatabase.taskDao().deleteAllTasks();
@@ -135,7 +134,6 @@ public class Repository {
     }
 
     private static class updateTask extends AsyncTask<Task, Void, Void> {
-
         @Override
         protected Void doInBackground(Task... tasks) {
             Log.d("updateTask", "Updating " + tasks[0].getUserTask());
@@ -143,5 +141,4 @@ public class Repository {
             return null;
         }
     }
-
 }
