@@ -152,8 +152,12 @@ public class addToDo extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
 
+        //Have to check if the user entered hour is less than the current hour &&
+        //If the hour is equal to the current hour check the minute time
+        //getCurrentHour is in 24 hour time. ie 1pm = 13
         if(timePicker.getCurrentHour() < calendar.get(Calendar.HOUR_OF_DAY) ||
-                timePicker.getCurrentMinute() < calendar.get(Calendar.MINUTE)){
+                (timePicker.getCurrentHour() == calendar.get(Calendar.HOUR_OF_DAY) &&
+                 timePicker.getCurrentMinute() > calendar.get(Calendar.MINUTE))){
             Log.d("timePicker","hour = " + String.valueOf(timePicker.getCurrentHour()) + " actual hour = " + String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)));
             Log.d("timePicker", "minute = " + String.valueOf(timePicker.getCurrentMinute() + "actual minute = " + String.valueOf(calendar.get(Calendar.MINUTE))));
             Toast.makeText(this,"Time has to be after the current time. We can't time travel yet", Toast.LENGTH_LONG).show();
