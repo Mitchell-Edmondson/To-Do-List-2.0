@@ -145,34 +145,16 @@ public class MainActivity extends AppCompatActivity {
                 Intent intentAlarm = new Intent(MainActivity.this, Alarm.class);
                 intentAlarm.putExtra("notification_startup", task.getId());
 
-                //Create an instance of calender to properly set time for alarm to go off
-                String time = task.getTime();
-                String hour = "";
-                String minute = "";
-                int i = 0;
-                while(time.charAt(i) != ':'){
-                    hour = hour + time.charAt(i);
-                    i++;
-                }
-                //Incrememt again to skip the ':'
-                i++;
-                //- 3 is to account for the "AM" or "PM"
-                while(i < time.length() - 2){
-                    minute = minute + time.charAt(i);
-                    i++;
-                }
+                String hour = viewModel.getHour(task.getTime(), task.getTime().indexOf(':'));
+                String minute = viewModel.getMinute(task.getTime(), task.getTime().indexOf(':'));
+                String amOrPm = viewModel.getAmOrPm(task.getTime(), task.getTime().indexOf(':'));
 
-                String amOrPm = "";
-                while(i < time.length()){
-                    amOrPm += time.charAt(i);
-                    i++;
-                }
                 Log.d("alarm", "amorpm = " + amOrPm);
                 if(amOrPm.equals(" PM")){
                     int newHour = Integer.valueOf(hour) + 12;
                     hour = String.valueOf(newHour);
                 }
-                Log.d("alarm", "time = " + time);
+                
                 Calendar calendar = Calendar.getInstance();
                 Log.d("alarm", "hour = " + String.valueOf(hour));
                 calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(hour));

@@ -83,4 +83,30 @@ public class ViewModel extends AndroidViewModel {
         repository.update(task);
     }
 
+    public String getHour(String time, int index){
+        String hour = "";
+        for(int i = 0; i < index; i++){
+            hour += time.charAt(i);
+        }
+        return hour;
+    }
+
+    public String getMinute(String time, int index){
+        String minute = "";
+        //Plus 1 to get past the ':', -2 to stop before AM or PM
+        for(int i = index + 1; i < time.length() - 2; i++){
+            minute += time.charAt(i);
+        }
+        return minute;
+    }
+
+    public String getAmOrPm(String time, int index){
+        String amOrPm = "";
+        //+3 to get to the start of am or pm
+        for(int i = index + 3; i < time.length(); i++){
+            amOrPm += time.charAt(i);
+        }
+        return amOrPm;
+    }
+
 }
