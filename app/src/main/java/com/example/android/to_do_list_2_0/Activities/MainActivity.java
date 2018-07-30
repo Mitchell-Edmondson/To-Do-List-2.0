@@ -1,14 +1,20 @@
 package com.example.android.to_do_list_2_0.Activities;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
-import android.support.constraint.ConstraintLayout;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,7 +22,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import com.example.android.to_do_list_2_0.Adapters.myAdapter;
-import com.example.android.to_do_list_2_0.Fragments.addToDo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,7 +32,16 @@ import com.example.android.to_do_list_2_0.Fragments.updateToDo;
 import com.example.android.to_do_list_2_0.R;
 import com.example.android.to_do_list_2_0.Room.Task;
 import com.example.android.to_do_list_2_0.Room.taskDatabase;
+import com.example.android.to_do_list_2_0.Utils.Alarm;
 import com.example.android.to_do_list_2_0.ViewModel.ViewModel;
+
+import org.apache.commons.lang3.SerializationUtils;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -54,6 +68,12 @@ public class MainActivity extends AppCompatActivity {
     //Variable for entered a todoTask
     static final int ENTERED_TASK = 1;
 
+    //Channel ID for notification for new os's
+    String CHANNEL_ID = "My_Channel_Id";
+
+    //Alarm manager
+    private AlarmManager alarmManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +96,41 @@ public class MainActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        createNotificationChannel();
+
+        //Check to see if this startup was because of a notification tap
+        Bundle bundle = getIntent().getExtras();
+        int taskId = -1;
+
+        if(bundle != null) {
+            Log.d("startUp", "bundle is not null, we have = " + String.valueOf(bundle.getInt("notification_startup")));
+            taskId = bundle.getInt("notification_startup");
+        }
+
+        Log.d("startUp", "taskId = " + String.valueOf(taskId));
+
+        if(taskId != -1){
+            displayToDo(taskId);
+        }
+
+        Log.d("startUp", "here");
+    }
+
+    //For android 8.0 and higher
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     @Override
@@ -97,6 +152,20 @@ public class MainActivity extends AppCompatActivity {
                 //Notify recyclerview and add it to screen
                 mAdapter.notifyItemInserted(todoTask.size() - 1);
                 mRecyclerView.scrollToPosition(todoTask.size() - 1);
+
+                //Create the alarm
+                alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                Intent intentAlarm = new Intent(MainActivity.this, Alarm.class);
+                intentAlarm.putExtra("notification_startup", task.getId());
+
+                PendingIntent pendingIntentAlarm = PendingIntent.getBroadcast(getApplicationContext(), task.getId(), intentAlarm, 0);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 3 * 1000, pendingIntentAlarm);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, 5000, pendingIntentAlarm);
+                }
+                Log.d("alarm", "starting alarm");
+
             }
         }
     }
@@ -176,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Read the task with the given ID
+        Log.d("displayToDo", "reading task with ID = " + String.valueOf(ID));
         Task task = viewModel.readTask(ID);
 
         FragmentManager fragmentManager = getSupportFragmentManager();

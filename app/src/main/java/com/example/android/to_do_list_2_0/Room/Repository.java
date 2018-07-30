@@ -6,6 +6,7 @@ import android.util.Log;
 import android.arch.lifecycle.LiveData;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.zip.Inflater;
 
 import static com.example.android.to_do_list_2_0.Activities.MainActivity.myTaskDatabase;
 
@@ -95,6 +96,7 @@ public class Repository {
 
         @Override
         protected Task doInBackground(Integer... params) {
+            Log.d("readTask", "reading ID = " + String.valueOf(params[0]));
             Task task = myTaskDatabase.taskDao().getTask(params[0]);
             Log.d("readTask", "read " + task.getUserTask());
             return task;
