@@ -13,8 +13,6 @@ import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,7 +24,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.android.to_do_list_2_0.Fragments.displayToDo;
 import com.example.android.to_do_list_2_0.Fragments.updateToDo;
 import com.example.android.to_do_list_2_0.R;
@@ -34,16 +31,9 @@ import com.example.android.to_do_list_2_0.Room.Task;
 import com.example.android.to_do_list_2_0.Room.taskDatabase;
 import com.example.android.to_do_list_2_0.Utils.Alarm;
 import com.example.android.to_do_list_2_0.ViewModel.ViewModel;
-
-import org.apache.commons.lang3.SerializationUtils;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 // TODO: 16/07/18
 /*
@@ -107,13 +97,11 @@ public class MainActivity extends AppCompatActivity {
             taskId = bundle.getInt("notification_startup");
         }
 
-        Log.d("startUp", "taskId = " + String.valueOf(taskId));
-
+        //App was launched from a notification
         if(taskId != -1){
             displayToDo(taskId);
         }
 
-        Log.d("startUp", "here");
     }
 
     //For android 8.0 and higher
@@ -158,8 +146,46 @@ public class MainActivity extends AppCompatActivity {
                 Intent intentAlarm = new Intent(MainActivity.this, Alarm.class);
                 intentAlarm.putExtra("notification_startup", task.getId());
 
+                //Create an instance of calender to properly set time for alarm to go off
+                String time = task.getTime();
+                String hour = "";
+                String minute = "";
+                int i = 0;
+                while(time.charAt(i) != ':'){
+                    hour = hour + time.charAt(i);
+                    i++;
+                }
+                //Incrememt again to skip the ':'
+                i++;
+                //- 3 is to account for the space + "AM" or "PM"
+                while(i < time.length() - 3){
+                    minute = minute + time.charAt(i);
+                    i++;
+                }
+
+                String amOrPm = "";
+                while(i < time.length()){
+                    amOrPm += time.charAt(i);
+                    i++;
+                }
+                Log.d("alarm", "amorpm = " + amOrPm);
+                if(amOrPm.equals(" PM")){
+                    int newHour = Integer.valueOf(hour) + 12;
+                    hour = String.valueOf(newHour);
+                }
+                Log.d("alarm", "time = " + time);
+                Calendar calendar = Calendar.getInstance();
+                Log.d("alarm", "hour = " + String.valueOf(hour));
+                calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(hour));
+                //int minute = time.charAt(3) + time.charAt(4);
+                Log.d("alarm", "minute = " + String.valueOf(minute));
+                calendar.set(Calendar.MINUTE, Integer.valueOf(minute));
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
+
+
                 PendingIntent pendingIntentAlarm = PendingIntent.getBroadcast(getApplicationContext(), task.getId(), intentAlarm, 0);
-                alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 3 * 1000, pendingIntentAlarm);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntentAlarm);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, 5000, pendingIntentAlarm);
@@ -172,30 +198,8 @@ public class MainActivity extends AppCompatActivity {
 
     //User hit "+" button. Start the fragment to enter a todoTask
     public void createAddToDo(View view) {
-
         Intent intent = new Intent(this, com.example.android.to_do_list_2_0.Activities.addToDo.class);
         startActivityForResult(intent, ENTERED_TASK);
-/* working code for fragment
-        //Check to get rid of any possible displayed task
-        Fragment test = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        if(test != null && test.isVisible()){
-            //Exit the fragment
-            getSupportFragmentManager().popBackStack();
-        }
-
-        //Start fragment for adding a ToDo
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        addToDo fragment = new addToDo();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.addToBackStack(null);
-
-        //Force the keyboard to pop up
-        InputMethodManager imm = (InputMethodManager)   getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-
-        fragmentTransaction.commit();
-*/
     }
 
     //Function to hide the keyboard

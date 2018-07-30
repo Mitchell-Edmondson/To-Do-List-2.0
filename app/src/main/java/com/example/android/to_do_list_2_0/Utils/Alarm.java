@@ -12,14 +12,6 @@ import android.widget.Toast;
 
 import com.example.android.to_do_list_2_0.Activities.MainActivity;
 import com.example.android.to_do_list_2_0.R;
-import com.example.android.to_do_list_2_0.Room.Task;
-
-import org.apache.commons.lang3.SerializationUtils;
-
-import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Alarm extends BroadcastReceiver {
 
