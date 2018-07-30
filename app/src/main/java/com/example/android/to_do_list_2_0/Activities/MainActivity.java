@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        //Create notification channel for newest OS 8.0
         createNotificationChannel();
 
         //Check to see if this startup was because of a notification tap
@@ -101,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
         if(taskId != -1){
             displayToDo(taskId);
         }
-
     }
 
     //For android 8.0 and higher
@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if(requestCode == ENTERED_TASK) {
-
             if(resultCode == RESULT_OK) {
                 Task task  = new Task();
                 String[] array = data.getStringArrayExtra("todoTask");
@@ -157,8 +156,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 //Incrememt again to skip the ':'
                 i++;
-                //- 3 is to account for the space + "AM" or "PM"
-                while(i < time.length() - 3){
+                //- 3 is to account for the "AM" or "PM"
+                while(i < time.length() - 2){
                     minute = minute + time.charAt(i);
                     i++;
                 }
@@ -269,7 +268,6 @@ public class MainActivity extends AppCompatActivity {
 
     //User hit the "Delete ToDo Button"
     public void deleteToDo(View view){
-
 
         //Create Toast
         Toast.makeText(this, "ToDo Deleted!", Toast.LENGTH_SHORT).show();

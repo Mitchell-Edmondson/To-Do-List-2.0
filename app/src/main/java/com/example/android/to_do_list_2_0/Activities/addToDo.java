@@ -126,7 +126,7 @@ public class addToDo extends AppCompatActivity {
                 }
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    Log.d("timePicker", "hour = " + String.valueOf(timePicker.getHour()) + "minute = " + String.valueOf(i1));
+                    Log.d("timePicker", "hour = " + String.valueOf(timePicker.getHour()) + " minute = " + String.valueOf(i1));
                 }
                 else{
                     String amOrPm = "PM";
@@ -154,6 +154,8 @@ public class addToDo extends AppCompatActivity {
 
         if(timePicker.getCurrentHour() < calendar.get(Calendar.HOUR_OF_DAY) ||
                 timePicker.getCurrentMinute() < calendar.get(Calendar.MINUTE)){
+            Log.d("timePicker","hour = " + String.valueOf(timePicker.getCurrentHour()) + " actual hour = " + String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)));
+            Log.d("timePicker", "minute = " + String.valueOf(timePicker.getCurrentMinute() + "actual minute = " + String.valueOf(calendar.get(Calendar.MINUTE))));
             Toast.makeText(this,"Time has to be after the current time. We can't time travel yet", Toast.LENGTH_LONG).show();
             Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -174,7 +176,7 @@ public class addToDo extends AppCompatActivity {
 
             if(timePicker.getCurrentHour() > 12) {
                 button.setText(String.valueOf(timePicker.getCurrentHour() - 12) + ":"
-                        + minute + " PM");
+                        + minute + "PM");
             }
             else{
                 button.setText(String.valueOf(timePicker.getCurrentHour() + ":"
