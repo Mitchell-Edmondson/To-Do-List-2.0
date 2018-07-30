@@ -10,6 +10,7 @@ import com.example.android.to_do_list_2_0.Room.Repository;
 import com.example.android.to_do_list_2_0.Room.Task;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 //Holds the UI data
@@ -109,4 +110,14 @@ public class ViewModel extends AndroidViewModel {
         return amOrPm;
     }
 
+    public Calendar setCalandar(String hour, String minute){
+        Calendar calendar = Calendar.getInstance();
+        Log.d("alarm", "hour = " + String.valueOf(hour));
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(hour));
+        Log.d("alarm", "minute = " + String.valueOf(minute));
+        calendar.set(Calendar.MINUTE, Integer.valueOf(minute));
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar;
+    }
 }

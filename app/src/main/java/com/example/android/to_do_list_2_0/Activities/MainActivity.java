@@ -154,16 +154,8 @@ public class MainActivity extends AppCompatActivity {
                     int newHour = Integer.valueOf(hour) + 12;
                     hour = String.valueOf(newHour);
                 }
-                
-                Calendar calendar = Calendar.getInstance();
-                Log.d("alarm", "hour = " + String.valueOf(hour));
-                calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(hour));
-                //int minute = time.charAt(3) + time.charAt(4);
-                Log.d("alarm", "minute = " + String.valueOf(minute));
-                calendar.set(Calendar.MINUTE, Integer.valueOf(minute));
-                calendar.set(Calendar.SECOND, 0);
-                calendar.set(Calendar.MILLISECOND, 0);
 
+                Calendar calendar = viewModel.setCalandar(hour, minute);
 
                 PendingIntent pendingIntentAlarm = PendingIntent.getBroadcast(getApplicationContext(), task.getId(), intentAlarm, 0);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntentAlarm);
@@ -193,30 +185,6 @@ public class MainActivity extends AppCompatActivity {
             view = new View(activity);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
-    //User hit the "Done" button. Add in the new Task to the database and display task on screen
-    public void updateScreen(View view){
-
-        //Get rid of the onscreen keyboard
-        hideKeyboard(this);
-        //Create toast saying todoTask added
-        Toast.makeText(this, "ToDo Created!", Toast.LENGTH_SHORT).show();
-        //Get the text the user entered
-        EditText editText = findViewById(R.id.add_todo_edit_text);
-        //Exit the fragment
-        getSupportFragmentManager().popBackStack();
-        //Get the id of the task
-        //Insert task into database and add it to arraylist
-        Log.d("insertTask", "child count (ID) = " + String.valueOf(mLayoutManager.getChildCount()));
-        //Long ID = viewModel.insert(editText.getText().toString(), mLayoutManager.getItemCount(), time);
-        Task task = new Task();
-        task.setUserTask(editText.getText().toString());
-        //Log.d("insertTask", "Actual ID of task = " + String.valueOf(ID));
-        //task.setId(ID.intValue());
-        todoTask.add(task);
-        //Notify recyclerview and add it to screen
-        mAdapter.notifyItemInserted(todoTask.size() - 1);
-        mRecyclerView.scrollToPosition(todoTask.size() - 1);
     }
 
     //User clicked on a todoTask in recyclerview. Start the fragment that displays the task
