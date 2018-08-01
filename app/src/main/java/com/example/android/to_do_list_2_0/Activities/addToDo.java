@@ -71,7 +71,7 @@ public class addToDo extends AppCompatActivity {
 
         //Check to see if user entered a time or not
         if(array[1].equals("Add a Time")){
-            array[1] = "11:59 PM";
+            array[1] = "11:59PM";
         }
         replyIntent.putExtra("todoTask", array);
 

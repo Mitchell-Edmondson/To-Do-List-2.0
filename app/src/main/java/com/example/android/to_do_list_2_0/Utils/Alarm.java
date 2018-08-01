@@ -24,7 +24,7 @@ public class Alarm extends BroadcastReceiver {
         Bundle bundle = intent.getExtras();
         Task task = (Task) bundle.get("notification_startup");
         Log.d("alarm", "bundle = " + task.getTime());
-        Toast.makeText(context, "Did you do it?", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Did you do " + task.getUserTask(), Toast.LENGTH_LONG).show();
         Intent intent1 = new Intent(context, MainActivity.class);
         intent1.putExtra("notification_startup", task.getId());
 
