@@ -19,7 +19,6 @@
         android:text="add time"
         app:layout_constraintTop_toBottomOf="@+id/time_picker"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:onClick="checkTime"/>
+        app:layout_constraintRight_toRightOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>
