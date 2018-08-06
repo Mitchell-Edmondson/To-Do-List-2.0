@@ -1,5 +1,7 @@
 package com.example.android.to_do_list_2_0;
 
+import com.example.android.to_do_list_2_0.ViewModel.ViewModel;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -13,5 +15,11 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
+    }
+
+    @Test
+    public void test_getHour(){
+        ViewModel viewModel = new ViewModel(null);
+        assertEquals(11, viewModel.getHour("11:00PM", 2));
     }
 }

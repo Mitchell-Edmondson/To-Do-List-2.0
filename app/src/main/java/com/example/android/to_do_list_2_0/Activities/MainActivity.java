@@ -101,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
         //App was launched from a notification
         if(taskId != -1){
             displayToDo(taskId);
+            //In case there are multiple notifications
+            taskId = -1;
         }
     }
 
