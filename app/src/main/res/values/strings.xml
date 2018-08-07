@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">To-Do-List-2_0</string>
     <string name="channel_name">Mitchells-Channel</string>
-    <string name="channel_description">Ayyyyy lmao</string>
+    <string name="channel_description">Mitchells-Channel-Description</string>
+    <string name="activity_add_todo_button">Add ToDo</string>
+    <string name="activity_enter_todo_textview">Enter Todo: </string>
+    <string name="activity_add_time_buttton">Add a Time </string>
 </resources>
