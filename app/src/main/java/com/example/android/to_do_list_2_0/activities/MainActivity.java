@@ -1,4 +1,4 @@
-package com.example.android.to_do_list_2_0.Activities;
+package com.example.android.to_do_list_2_0.activities;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -29,7 +29,7 @@ import com.example.android.to_do_list_2_0.Fragments.updateToDo;
 import com.example.android.to_do_list_2_0.R;
 import com.example.android.to_do_list_2_0.Room.Task;
 import com.example.android.to_do_list_2_0.Room.taskDatabase;
-import com.example.android.to_do_list_2_0.Utils.Alarm;
+import com.example.android.to_do_list_2_0.utils.Alarm;
 import com.example.android.to_do_list_2_0.ViewModel.ViewModel;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
 
     //User hit "+" button. Start the fragment to enter a todoTask
     public void createAddToDo(View view) {
-        Intent intent = new Intent(this, com.example.android.to_do_list_2_0.Activities.addToDo.class);
+        Intent intent = new Intent(this, com.example.android.to_do_list_2_0.activities.addToDo.class);
         startActivityForResult(intent, ENTERED_TASK);
     }
 

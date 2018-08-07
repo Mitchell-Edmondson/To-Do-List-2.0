@@ -1,4 +1,4 @@
-package com.example.android.to_do_list_2_0.Activities;
+package com.example.android.to_do_list_2_0.activities;
 
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Vibrator;
 import android.support.v7.widget.RecyclerView;
@@ -25,17 +24,12 @@ import android.widget.PopupWindow;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.android.to_do_list_2_0.Adapters.myAdapter;
 import com.example.android.to_do_list_2_0.R;
 import com.example.android.to_do_list_2_0.Room.Task;
 import com.example.android.to_do_list_2_0.ViewModel.ViewModel;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.zip.Inflater;
-
-import static com.example.android.to_do_list_2_0.Activities.MainActivity.hideKeyboard;
 
 public class addToDo extends AppCompatActivity {
 
