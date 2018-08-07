@@ -26,7 +26,7 @@ public class MainActivityTest {
 
     @Test
     public void shouldNotBeNull(){
-        MainActivity mainActivity = Robolectric.setupActivity(MainActivity.class);
+        addToDo mainActivity = Robolectric.setupActivity(addToDo.class);
         assertNotNull(mainActivity);
     }
 

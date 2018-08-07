@@ -80,8 +80,4 @@ public class database_Test {
         assertEquals(byName.getUserTask(), user.getUserTask());
         assertEquals(byName.getId(), user.getId());
     }
-
-    @Test
-    public void test
-
 }
