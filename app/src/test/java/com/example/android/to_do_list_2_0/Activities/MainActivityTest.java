@@ -1,9 +1,9 @@
-package com.example.android.to_do_list_2_0.activities;
+package com.example.android.to_do_list_2_0.Activities;
 
 import com.example.android.to_do_list_2_0.BuildConfig;
 import com.example.android.to_do_list_2_0.Room.taskDao;
 import com.example.android.to_do_list_2_0.Room.taskDatabase;
-import com.example.android.to_do_list_2_0.activities.addToDo;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
