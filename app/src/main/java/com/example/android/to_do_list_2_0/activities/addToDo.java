@@ -113,23 +113,46 @@ public class addToDo extends AppCompatActivity {
             public void onTimeChanged(TimePicker timePicker, int i, int i1) {
 
                 //Have this minute variable because getCurrentMinute doesnt have "01", its only "1"
-                String minute = String.valueOf(timePicker.getCurrentMinute());
+                String minute = null;
+                boolean apoveAPI23 = false;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    minute = String.valueOf(timePicker.getMinute());
+                    apoveAPI23 = true;
+                }else{
+                    minute = String.valueOf(timePicker.getCurrentMinute());
+                }
 
-                if(timePicker.getCurrentMinute() < 10){
+                if(apoveAPI23){
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if(timePicker.getMinute() < 10){
+                            minute = "0" + String.valueOf(timePicker.getCurrentMinute());
+                        }
+                    }
+                }
+                else{
                     minute = "0" + String.valueOf(timePicker.getCurrentMinute());
                 }
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     Log.d("timePicker", "hour = " + String.valueOf(timePicker.getHour()) + " minute = " + String.valueOf(i1));
                 }
-                else{
+
+                else {
                     String amOrPm = "PM";
-                    if(timePicker.getCurrentHour() < 12){
-                        amOrPm = "AM";
+                    if (apoveAPI23) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            if (timePicker.getHour() < 12) {
+                                amOrPm = "AM";
+                            }
+                        }
+                    } else {
+                        if (timePicker.getCurrentHour() < 12) {
+                            amOrPm = "AM";
+                        }
+                        Log.d("timePicker", "hour = " + String.valueOf(timePicker.getCurrentHour())
+                                + "minute = " + minute
+                                + " " + amOrPm);
                     }
-                    Log.d("timePicker", "hour = " + String.valueOf(timePicker.getCurrentHour())
-                            + "minute = " + minute
-                            + " " + amOrPm);
                 }
             }
         });
