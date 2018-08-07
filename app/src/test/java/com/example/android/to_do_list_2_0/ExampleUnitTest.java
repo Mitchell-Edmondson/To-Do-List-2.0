@@ -16,10 +16,4 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
-
-    @Test
-    public void test_getHour(){
-        ViewModel viewModel = new ViewModel(null);
-        assertEquals(11, viewModel.getHour("11:00PM", 2));
-    }
 }
