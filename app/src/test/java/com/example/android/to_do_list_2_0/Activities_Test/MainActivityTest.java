@@ -14,10 +14,5 @@ import static junit.framework.Assert.assertNotNull;
 public class MainActivityTest {
 
 
-    @Test
-    public void shouldNotBeNull(){
-        //addToDo mainActivity = Robolectric.setupActivity(addToDo.class);
-        //assertNotNull(mainActivity);
-    }
 
 }
