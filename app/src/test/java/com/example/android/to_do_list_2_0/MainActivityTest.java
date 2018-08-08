@@ -1,4 +1,4 @@
-package com.example.android.to_do_list_2_0.Activities_Test;
+package com.example.android.to_do_list_2_0;
 
 import com.example.android.to_do_list_2_0.BuildConfig;
 import org.junit.Test;
@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import com.example.android.to_do_list_2_0.activities.addToDo;
 
 import static junit.framework.Assert.assertNotNull;
 
@@ -13,6 +14,13 @@ import static junit.framework.Assert.assertNotNull;
 @Config(constants = BuildConfig.class)
 public class MainActivityTest {
 
+    private addToDo m;
 
+
+    @Test
+    public void shouldNotBeNull(){
+        //addToDo mainActivity = Robolectric.setupActivity(addToDo.class);
+        //assertNotNull(mainActivity);
+    }
 
 }
