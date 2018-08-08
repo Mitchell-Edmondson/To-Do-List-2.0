@@ -1,4 +1,4 @@
-package com.example.android.to_do_list_2_0.Activities;
+package com.example.android.to_do_list_2_0.activities;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
 
     //User hit "+" button. Start the fragment to enter a todoTask
     public void createAddToDo(View view) {
-        Intent intent = new Intent(this, com.example.android.to_do_list_2_0.Activities.addToDo.class);
+        Intent intent = new Intent(this, com.example.android.to_do_list_2_0.activities.addToDo.class);
         startActivityForResult(intent, ENTERED_TASK);
     }
 
