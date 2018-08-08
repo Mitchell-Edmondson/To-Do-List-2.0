@@ -19,5 +19,4 @@ public class MainActivityTest {
         addToDo mainActivity = Robolectric.setupActivity(addToDo.class);
         assertNotNull(mainActivity);
     }
-
 }
