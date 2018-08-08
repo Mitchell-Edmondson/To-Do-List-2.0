@@ -17,10 +17,6 @@ import static junit.framework.Assert.assertNotNull;
 @Config(constants = BuildConfig.class)
 public class MainActivityTest {
 
-    private taskDao mTaskDao;
-    private taskDatabase mDatabase;
-    private addToDo m;
-
 
     @Test
     public void shouldNotBeNull(){
