@@ -28,7 +28,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:textAllCaps="false"
-        android:text="Update ToDo"
+        android:text="@string/activity_update_todo_update_button"
         android:onClick="updateToDo"/>
 
     <Button
@@ -38,7 +38,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:textAllCaps="false"
-        android:text="Delete ToDo"
+        android:text="@string/activity_update_todo_delete_button"
         android:onClick="deleteToDo"/>
 
 </android.support.constraint.ConstraintLayout>

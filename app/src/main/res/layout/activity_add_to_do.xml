@@ -33,7 +33,7 @@
         app:layout_constraintLeft_toRightOf="@id/textview"
         app:layout_constraintRight_toLeftOf="@+id/button_add_time"
         app:layout_constraintTop_toTopOf="parent"
-        android:hint="Ex: Find a job"
+        android:hint="@string/activity_hint_edittext"
         android:inputType="text"/>
 
     <Button

@@ -5,4 +5,9 @@
     <string name="activity_add_todo_button">Add ToDo</string>
     <string name="activity_enter_todo_textview">Enter Todo: </string>
     <string name="activity_add_time_buttton">Add a Time </string>
+    <string name="activity_hint_edittext">Ex: Find a job </string>
+    <string name="activity_plus_button">+</string>
+    <string name="activity_update_todo_delete_button">Delete ToDo</string>
+    <string name="activity_update_todo_update_button">Update ToDo</string>
 </resources>
+
