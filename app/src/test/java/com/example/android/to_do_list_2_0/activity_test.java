@@ -1,7 +1,7 @@
 package com.example.android.to_do_list_2_0;
 
 
-import com.example.android.to_do_list_2_0.Activities.addToDo;
+import com.example.android.to_do_list_2_0.activities.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,5 +20,4 @@ public class activity_test {
         addToDo mainActivity = Robolectric.setupActivity(addToDo.class);
         assertNotNull(mainActivity);
     }
-
 }

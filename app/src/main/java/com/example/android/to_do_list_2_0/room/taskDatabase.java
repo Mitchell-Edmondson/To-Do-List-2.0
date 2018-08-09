@@ -1,4 +1,4 @@
-package com.example.android.to_do_list_2_0.Room;
+package com.example.android.to_do_list_2_0.room;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;

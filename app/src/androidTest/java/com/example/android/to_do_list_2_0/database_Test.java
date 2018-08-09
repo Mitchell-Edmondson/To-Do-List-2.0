@@ -5,9 +5,9 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.example.android.to_do_list_2_0.Room.Task;
-import com.example.android.to_do_list_2_0.Room.taskDao;
-import com.example.android.to_do_list_2_0.Room.taskDatabase;
+import com.example.android.to_do_list_2_0.room.Task;
+import com.example.android.to_do_list_2_0.room.taskDao;
+import com.example.android.to_do_list_2_0.room.taskDatabase;
 
 import org.junit.After;
 import org.junit.Before;

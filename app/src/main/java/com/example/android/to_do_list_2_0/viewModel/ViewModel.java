@@ -1,4 +1,4 @@
-package com.example.android.to_do_list_2_0.ViewModel;
+package com.example.android.to_do_list_2_0.viewModel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -6,8 +6,8 @@ import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.android.to_do_list_2_0.Room.Repository;
-import com.example.android.to_do_list_2_0.Room.Task;
+import com.example.android.to_do_list_2_0.room.Repository;
+import com.example.android.to_do_list_2_0.room.Task;
 
 import java.util.ArrayList;
 import java.util.Calendar;

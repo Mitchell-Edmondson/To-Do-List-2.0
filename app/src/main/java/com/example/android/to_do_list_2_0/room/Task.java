@@ -1,4 +1,4 @@
-package com.example.android.to_do_list_2_0.Room;
+package com.example.android.to_do_list_2_0.room;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.PrimaryKey;
@@ -6,7 +6,6 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.TypeConverters;
 
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity(tableName = "userTask")
 //Implements serializable to be able to pass task object to fragment

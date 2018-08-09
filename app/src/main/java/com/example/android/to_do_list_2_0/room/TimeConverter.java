@@ -1,7 +1,6 @@
-package com.example.android.to_do_list_2_0.Room;
+package com.example.android.to_do_list_2_0.room;
 
 import android.arch.persistence.room.TypeConverter;
-import android.provider.SyncStateContract;
 
 import java.text.DateFormat;
 import java.text.ParseException;

@@ -1,4 +1,4 @@
-package com.example.android.to_do_list_2_0.Adapters;
+package com.example.android.to_do_list_2_0.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.android.to_do_list_2_0.Activities.MainActivity;
+import com.example.android.to_do_list_2_0.activities.MainActivity;
 import com.example.android.to_do_list_2_0.R;
-import com.example.android.to_do_list_2_0.Room.Task;
+import com.example.android.to_do_list_2_0.room.Task;
 
 import java.util.ArrayList;
 

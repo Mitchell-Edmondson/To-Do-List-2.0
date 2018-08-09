@@ -1,4 +1,4 @@
-package com.example.android.to_do_list_2_0.Fragments;
+package com.example.android.to_do_list_2_0.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.android.to_do_list_2_0.R;
-import com.example.android.to_do_list_2_0.Room.Task;
+import com.example.android.to_do_list_2_0.room.Task;
 
 public class updateToDo extends Fragment {
 

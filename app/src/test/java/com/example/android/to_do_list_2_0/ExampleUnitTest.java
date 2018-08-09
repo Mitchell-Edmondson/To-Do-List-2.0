@@ -1,7 +1,5 @@
 package com.example.android.to_do_list_2_0;
 
-import com.example.android.to_do_list_2_0.ViewModel.ViewModel;
-
 import org.junit.Test;
 
 import static org.junit.Assert.*;
