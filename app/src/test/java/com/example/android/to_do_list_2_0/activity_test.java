@@ -1,7 +1,7 @@
 package com.example.android.to_do_list_2_0;
 
 
-import com.example.android.to_do_list_2_0.activities.addToDo;
+import com.example.android.to_do_list_2_0.myActivities.addToDo;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

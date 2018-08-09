@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.android.to_do_list_2_0.activities.MainActivity;
+import com.example.android.to_do_list_2_0.myActivities.MainActivity;
 import com.example.android.to_do_list_2_0.R;
 import com.example.android.to_do_list_2_0.room.Task;
 
