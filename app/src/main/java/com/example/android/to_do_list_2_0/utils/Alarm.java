@@ -10,7 +10,7 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.android.to_do_list_2_0.activities.MainActivity;
+import com.example.android.to_do_list_2_0.Activities.MainActivity;
 import com.example.android.to_do_list_2_0.R;
 import com.example.android.to_do_list_2_0.room.Task;
 
