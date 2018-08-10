@@ -97,13 +97,13 @@ public class MainActivity extends AppCompatActivity {
         if(bundle != null) {
             Log.d("startUp", "bundle is not null, we have = " + String.valueOf(bundle.getInt("notification_startup")));
             taskId = bundle.getInt("notification_startup");
-        }
 
-        //App was launched from a notification
-        if(taskId != -1){
-            displayToDo(taskId);
-            //In case there are multiple notifications
-            taskId = -1;
+            //App was launched from a notification
+            if(taskId != -1){
+                displayToDo(taskId);
+                //In case there are multiple notifications
+                taskId = -1;
+            }
         }
     }
 
@@ -168,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
                     //alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, 5000, pendingIntentAlarm);
                 }
                 Log.d("alarm", "starting alarm");
-
             }
         }
     }

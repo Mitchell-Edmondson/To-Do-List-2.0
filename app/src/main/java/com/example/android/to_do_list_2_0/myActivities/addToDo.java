@@ -57,7 +57,7 @@ public class addToDo extends AppCompatActivity {
         Intent replyIntent = new Intent();
         //replyIntent.putExtra("todoTask", editText.getText().toString());
 
-        //Get time from the button
+        //Get time fro m the button
         Button button = findViewById(R.id.button_add_time);
         String[] array = new String[2];
         array[0] = editText.getText().toString();
@@ -100,7 +100,7 @@ public class addToDo extends AppCompatActivity {
 
         final TimePicker timePicker = v.findViewById(R.id.time_picker);
 
-        final Button button = v.findViewById(R.id.button_test_time);
+        Button button = v.findViewById(R.id.button_test_time);
 
         final PopupWindow popupWindow = new PopupWindow(v, RecyclerView.LayoutParams.WRAP_CONTENT, RecyclerView.LayoutParams.WRAP_CONTENT, true);
 
