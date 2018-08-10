@@ -50,7 +50,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
 
     testImplementation "org.robolectric:robolectric:3.8"
-    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:2.0'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
 
     // Room components
     implementation "android.arch.persistence.room:runtime:$room_version"
