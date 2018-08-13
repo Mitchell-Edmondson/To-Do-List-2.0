@@ -26,7 +26,7 @@ import android.widget.Toast;
 
 import com.example.android.to_do_list_2_0.R;
 import com.example.android.to_do_list_2_0.room.Task;
-import com.example.android.to_do_list_2_0.viewModel.ViewModel;
+import com.example.android.to_do_list_2_0.viewModel.myViewModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,7 +34,7 @@ import java.util.Calendar;
 public class addToDo extends AppCompatActivity {
 
 
-    private ViewModel viewModel;
+    private myViewModel viewModel;
     private ArrayList<Task> todoTask = new ArrayList<Task>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class addToDo extends AppCompatActivity {
         InputMethodManager imm = (InputMethodManager)   getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
-        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(myViewModel.class);
     }
     //User hit the "Add ToDo" button. Add in the new Task to the database and display task on screen
     public void addToDo(View view){
