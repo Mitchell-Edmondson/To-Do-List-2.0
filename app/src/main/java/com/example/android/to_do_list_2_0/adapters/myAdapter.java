@@ -12,6 +12,7 @@ import com.example.android.to_do_list_2_0.R;
 import com.example.android.to_do_list_2_0.room.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
 
@@ -67,5 +68,10 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return todoTask.size();
+    }
+
+    public void setTodoTask(List<Task> tasks){
+        todoTask = (ArrayList<Task>) tasks;
+        notifyDataSetChanged();
     }
 }

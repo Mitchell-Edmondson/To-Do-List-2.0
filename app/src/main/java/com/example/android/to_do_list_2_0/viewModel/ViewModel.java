@@ -34,6 +34,8 @@ public class ViewModel extends AndroidViewModel {
         return repository.insert(task);
     }
 
+    public LiveData<List<Task>> getAllTasks() {return allTasks;}
+
     public List<Task> readAll()
     {
         return repository.readAll();

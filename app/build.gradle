@@ -58,6 +58,7 @@ dependencies {
 
     //ViewModel and LiveData
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
 
     //RecyclerView
     implementation 'com.android.support:recyclerview-v7:27.1.1'

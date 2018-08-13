@@ -5,11 +5,13 @@ import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -34,6 +36,7 @@ import com.example.android.to_do_list_2_0.viewModel.ViewModel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 // TODO: 16/07/18
 
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Variables for recyclerview setup
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private myAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Task> todoTask;
 
@@ -72,6 +75,16 @@ public class MainActivity extends AppCompatActivity {
         //Creating the ViewModel
         viewModel = ViewModelProviders.of(this).get(ViewModel.class);
 
+        //Livedata observer
+        viewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
+            @Override
+            public void onChanged(@Nullable final List<Task> tasks) {
+                //Right now having this messes up the recyclerview
+
+                //mAdapter.setTodoTask(tasks);
+            }
+        });
+
         //Initalize the database
         myTaskDatabase = Room.databaseBuilder(getApplicationContext(), taskDatabase.class,
                 "userTaskDB").build();
@@ -86,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        
+
 
         //Create notification channel for newest OS 8.0
         createNotificationChannel();
@@ -126,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        
         if(requestCode == ENTERED_TASK) {
             if(resultCode == RESULT_OK) {
                 Task task  = new Task();
