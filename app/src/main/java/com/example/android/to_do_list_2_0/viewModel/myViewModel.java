@@ -14,12 +14,12 @@ import java.util.Calendar;
 import java.util.List;
 
 //Holds the UI data
-public class ViewModel extends AndroidViewModel {
+public class myViewModel extends AndroidViewModel {
 
     private LiveData<List<Task>> allTasks;
     private Repository repository;
 
-    public ViewModel(@NonNull Application application) {
+    public myViewModel(@NonNull Application application) {
         super(application);
         repository = new Repository(application);
         allTasks = repository.getAllTasks();

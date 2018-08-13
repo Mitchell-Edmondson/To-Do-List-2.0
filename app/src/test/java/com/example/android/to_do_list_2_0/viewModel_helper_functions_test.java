@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.example.android.to_do_list_2_0.myActivities.MainActivity;
 import com.example.android.to_do_list_2_0.myActivities.addToDo;
-import com.example.android.to_do_list_2_0.viewModel.ViewModel;
+import com.example.android.to_do_list_2_0.viewModel.myViewModel;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -29,12 +29,12 @@ import static org.mockito.Mockito.when;
 public class viewModel_helper_functions_test {
 
 
-    private ViewModel viewModel;
+    private myViewModel viewModel;
     String time;
 
     @Before
     public void init(){
-        viewModel = mock(ViewModel.class);
+        viewModel = mock(myViewModel.class);
     }
 
     @Test

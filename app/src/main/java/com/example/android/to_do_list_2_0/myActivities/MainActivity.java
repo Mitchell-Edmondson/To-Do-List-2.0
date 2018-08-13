@@ -32,7 +32,7 @@ import com.example.android.to_do_list_2_0.R;
 import com.example.android.to_do_list_2_0.room.Task;
 import com.example.android.to_do_list_2_0.room.taskDatabase;
 import com.example.android.to_do_list_2_0.utils.Alarm;
-import com.example.android.to_do_list_2_0.viewModel.ViewModel;
+import com.example.android.to_do_list_2_0.viewModel.myViewModel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,7 +49,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     //Variable for viewmodel
-    private ViewModel viewModel;
+    private myViewModel viewModel;
     //Variable for database
     public static taskDatabase myTaskDatabase;
 
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Creating the ViewModel
-        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(myViewModel.class);
 
         //Livedata observer
         viewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
