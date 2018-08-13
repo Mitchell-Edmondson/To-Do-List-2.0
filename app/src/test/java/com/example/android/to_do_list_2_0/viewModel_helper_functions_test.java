@@ -1,22 +1,11 @@
 package com.example.android.to_do_list_2_0;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.os.AsyncTask;
-import android.view.View;
-
-import com.example.android.to_do_list_2_0.myActivities.MainActivity;
-import com.example.android.to_do_list_2_0.myActivities.addToDo;
-import com.example.android.to_do_list_2_0.viewModel.myViewModel;
+import com.example.android.to_do_list_2_0.myViewModel.myViewModel;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;

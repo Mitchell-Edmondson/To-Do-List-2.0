@@ -1,4 +1,4 @@
-package com.example.android.to_do_list_2_0.viewModel;
+package com.example.android.to_do_list_2_0.myViewModel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

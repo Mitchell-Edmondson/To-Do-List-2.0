@@ -32,7 +32,7 @@ import com.example.android.to_do_list_2_0.R;
 import com.example.android.to_do_list_2_0.room.Task;
 import com.example.android.to_do_list_2_0.room.taskDatabase;
 import com.example.android.to_do_list_2_0.utils.Alarm;
-import com.example.android.to_do_list_2_0.viewModel.myViewModel;
+import com.example.android.to_do_list_2_0.myViewModel.myViewModel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
