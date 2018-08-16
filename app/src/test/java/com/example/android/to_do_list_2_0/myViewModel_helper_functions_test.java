@@ -15,7 +15,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 @Config(constants = BuildConfig.class)
-public class viewModel_helper_functions_test {
+public class myViewModel_helper_functions_test {
 
 
     private myViewModel viewModel;
@@ -81,4 +81,19 @@ public class viewModel_helper_functions_test {
         when(viewModel.getHour(time,  time.indexOf(':'))).thenReturn("12");
         assertEquals("12", viewModel.getHour(time,  time.indexOf(':')));
     }
+
+    @Test
+    public void testGetAmOrPm0(){
+        time = "1:01AM";
+        when(viewModel.getAmOrPm(time, time.indexOf(":"))).thenReturn("AM");
+        assertEquals("AM", viewModel.getAmOrPm(time, time.indexOf(":")));
+    }
+
+    @Test
+    public void testGetAmOrPm1(){
+        time = "10:55PM";
+        when(viewModel.getAmOrPm(time, time.indexOf(":"))).thenReturn("PM");
+        assertEquals("PM", viewModel.getAmOrPm(time, time.indexOf(":")));
+    }
+
 }
