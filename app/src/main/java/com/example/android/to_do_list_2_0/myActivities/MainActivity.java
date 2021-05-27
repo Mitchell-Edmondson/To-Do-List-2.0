@@ -39,6 +39,7 @@ import java.util.Calendar;
 import java.util.List;
 
 // TODO: 16/07/18
+//Testing
 
 /*
     Have a check if no task is in edittext
