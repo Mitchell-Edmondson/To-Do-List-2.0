@@ -13,7 +13,7 @@ import com.example.android.to_do_list_2_0.room.Task;
 
 import java.util.ArrayList;
 import java.util.List;
-//this is a test
+
 public class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
 
     private ArrayList<Task> todoTask;
