@@ -1,5 +1,5 @@
 package com.example.android.to_do_list_2_0.myActivities;
-
+//dd
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
@@ -39,6 +39,7 @@ import java.util.Calendar;
 import java.util.List;
 
 // TODO: 16/07/18
+//Testing
 
 /*
     Have a check if no task is in edittext
